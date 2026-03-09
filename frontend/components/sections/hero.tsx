@@ -1,19 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { IconSparkles, IconArrowUpRight } from "@tabler/icons-react";
+import { IconSparkles, IconPlayerPlayFilled } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative pt-40 pb-20 md:pt-48 md:pb-32 overflow-hidden flex flex-col items-center justify-center text-center px-4">
+    <section className="relative pt-44 pb-28 md:pt-52 md:pb-40 lg:pt-56 lg:pb-48 overflow-hidden flex flex-col items-center justify-center text-center px-4 min-h-[90vh]">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <Image 
-          src="/images/background-01.png"
+        <Image
+          src="/images/hero-bg.png"
           alt="Hero Background"
           fill
           priority
           className="object-cover object-center"
+          sizes="100vw"
         />
       </div>
 
@@ -36,23 +37,27 @@ export function Hero() {
 
         {/* Subheading */}
         <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl font-medium leading-[1.6]">
-          Genas helps you generate assignments, essays, research drafts, and academic content 
+          Genas helps you generate assignments, essays, research drafts, and academic content
           in minutes not hours.
         </p>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
           <Link href="/waitlist">
-            <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-8 h-12 transition-all flex items-center gap-2 group font-semibold text-[15px]">
-              <IconSparkles className="w-4 h-4 mr-2 group-hover:animate-pulse" />
-              Join Waitlist
+            <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-8 h-12 transition-all flex items-center gap-2 group font-semibold text-[15px] shadow-[0_4px_20px_rgba(59,96,255,0.35)] hover:shadow-[0_6px_28px_rgba(59,96,255,0.5)] hover:scale-[1.02]">
+              <IconSparkles className="w-[18px] h-[18px] group-hover:animate-pulse" />
+              Get Started
             </Button>
           </Link>
-          <Button variant="outline" className="rounded-full bg-white/80 backdrop-blur-sm border-slate-200 text-slate-700 hover:bg-slate-50 px-8 h-12 shadow-sm transition-all font-semibold text-[15px]">
-            Learn How it Works
-          </Button>
+          <Link href="/#how-it-works">
+            <Button variant="outline" className="rounded-full bg-white/80 backdrop-blur-sm border-slate-200 text-slate-700 hover:bg-white px-8 h-12 shadow-sm transition-all font-semibold text-[15px] hover:shadow-md hover:scale-[1.02] flex items-center gap-2 group">
+              <IconPlayerPlayFilled className="w-4 h-4 text-slate-500 group-hover:text-[#3b60ff] transition-colors" />
+              Watch Demo
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
   );
 }
+
