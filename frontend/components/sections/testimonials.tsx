@@ -30,7 +30,7 @@ export function Testimonials() {
     <section className="py-24 bg-[#F5F5F5] flex flex-col items-center justify-center text-center px-4 overflow-hidden">
       {/* Header */}
       <div className="max-w-3xl mx-auto mb-16 relative z-10 flex flex-col items-center">
-        <div className="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-500 text-[11px] font-semibold px-4 py-1.5 rounded-full mb-6 shadow-sm uppercase tracking-wider">
+        <div className="inline-flex items-center justify-center bg-white text-slate-500 text-[11px] font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
           Testimonial
         </div>
         <h2 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight text-balance max-w-3xl mx-auto">

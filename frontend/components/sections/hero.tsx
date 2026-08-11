@@ -1,26 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { IconSparkles, IconPlayerPlayFilled } from "@tabler/icons-react";
+import { IconSparkles, IconArrowUpRight } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative pt-44 pb-28 md:pt-52 md:pb-40 lg:pt-56 lg:pb-48 overflow-hidden flex flex-col items-center justify-center text-center px-4 min-h-[90vh]">
+    <section className="relative pt-40 pb-20 md:pt-48 md:pb-32 overflow-hidden flex flex-col items-center justify-center text-center px-4">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/hero-bg.png"
+          src="/images/background-01.png"
           alt="Hero Background"
           fill
           priority
           className="object-cover object-center"
-          sizes="100vw"
         />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
         {/* Badge */}
-        <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-white/40 shadow-sm rounded-full px-4 py-1.5 mb-8">
+        <div className="inline-flex items-center space-x-2 bg-white/80 rounded-full px-4 py-1.5 mb-8">
           <span className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
             <span className="relative flex h-2 w-2 mr-0.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -44,15 +43,15 @@ export function Hero() {
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
           <Link href="/waitlist">
-            <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-8 h-12 transition-all flex items-center gap-2 group font-semibold text-[15px] shadow-[0_4px_20px_rgba(59,96,255,0.35)] hover:shadow-[0_6px_28px_rgba(59,96,255,0.5)] hover:scale-[1.02]">
-              <IconSparkles className="w-[18px] h-[18px] group-hover:animate-pulse" />
-              Get Started
+            <Button className="rounded-full bg-[#3b60ff] text-white px-6 h-14 transition-all flex items-center gap-2 group font-semibold text-[15px]">
+              <IconSparkles className="w-[18px] h-[18px]" />
+              Join Waitlist
             </Button>
           </Link>
           <Link href="/#how-it-works">
-            <Button variant="outline" className="rounded-full bg-white/80 backdrop-blur-sm border-slate-200 text-slate-700 hover:bg-white px-8 h-12 shadow-sm transition-all font-semibold text-[15px] hover:shadow-md hover:scale-[1.02] flex items-center gap-2 group">
-              <IconPlayerPlayFilled className="w-4 h-4 text-slate-500 group-hover:text-[#3b60ff] transition-colors" />
-              Watch Demo
+            <Button variant="outline" className="rounded-full bg-white border-slate-200 text-slate-800 px-6 h-14 font-semibold text-[15px] flex items-center gap-3 group">
+              How It Works
+              <IconArrowUpRight className="w-[20px] h-[20px] text-slate-700" />
             </Button>
           </Link>
         </div>

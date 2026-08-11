@@ -21,15 +21,15 @@ export function Footer() {
             <h4 className="text-[17px] font-bold text-slate-900 mb-6 tracking-tight">Social</h4>
             <ul className="flex flex-col gap-4">
               {[
-                { name: "X", url: "#" },
-                { name: "LinkedIn", url: "#" },
-                { name: "Instagram", url: "#" },
-                { name: "YouTube", url: "#" },
-                { name: "TikTok", url: "#" },
-                { name: "Telegram", url: "#" },
+                { name: "X", url: "https://x.com/genassai" },
+                { name: "LinkedIn", url: "https://www.linkedin.com/in/genass-ai-4a81273ba?utm_source=share_via&utm_content=profile&utm_medium=member_ios" },
+                { name: "Instagram", url: "https://www.instagram.com/genassai/" },
+                { name: "YouTube", url: "https://www.youtube.com/@GenassAi" },
+                { name: "TikTok", url: "https://www.tiktok.com/@genassai?is_from_webapp=1&sender_device=pc" },
+                { name: "Telegram", url: "https://t.me/genasai" },
               ].map((link) => (
                 <li key={link.name}>
-                  <Link href={link.url} className="text-[15px] font-semibold text-slate-600 hover:text-slate-900 transition-colors flex items-center justify-between group w-32">
+                  <Link href={link.url} target="_blank" rel="noopener noreferrer" className="text-[15px] font-semibold text-slate-600 hover:text-slate-900 transition-colors flex items-center justify-between group w-32">
                     {link.name}
                     <IconArrowUpRight className="w-3.5 h-3.5 ml-1 opacity-60 group-hover:opacity-100 transition-opacity" />
                   </Link>
