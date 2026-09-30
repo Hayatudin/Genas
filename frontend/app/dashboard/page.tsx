@@ -8,10 +8,10 @@ import {
   IconArrowRight, 
   IconBell, 
   IconDotsVertical, 
-  IconNotes, 
-  IconFileText, 
-  IconFileSearch, 
-  IconClipboardText,
+  IconNote,
+  IconClipboardCheck,
+  IconBook,
+  IconReportAnalytics,
   IconExternalLink,
   IconEdit,
   IconDownload
@@ -41,34 +41,46 @@ export default function DashboardOverview() {
     { 
       name: "Assignment", 
       desc: "Structured academic submission", 
-      gradient: "from-[#1fa2ff] via-[#6d76f8] to-[#f694e9]",
-      icon: IconNotes,
+      gradient: "from-[#20a4f3] via-[#747bf7] to-[#ec77db]",
+      icon: IconNote,
       imageSrc: "/upload/Assignment.png",
-      imageAlt: "Assignment illustration"
+      imageAlt: "Assignment illustration",
+      imgWidth: 95,
+      imgHeight: 112,
+      imgPos: "right-6 sm:right-8 top-2.5 w-[95px] h-[112px]"
     },
     { 
       name: "Essay", 
       desc: "Argumentative, descriptive, analytical", 
-      gradient: "from-[#0ba5ec] via-[#5d6cf8] to-[#ea63ca]",
-      icon: IconFileText,
+      gradient: "from-[#0096c7] via-[#5e7bf9] to-[#db6cd5]",
+      icon: IconClipboardCheck,
       imageSrc: "/upload/Essay.png",
-      imageAlt: "Essay illustration"
+      imageAlt: "Essay illustration",
+      imgWidth: 88,
+      imgHeight: 108,
+      imgPos: "right-6 sm:right-8 top-3 w-[88px] h-[108px]"
     },
     { 
       name: "Research Paper", 
       desc: "Full academic research format", 
-      gradient: "from-[#0284c7] via-[#4361ee] to-[#b57bf7]",
-      icon: IconFileSearch,
+      gradient: "from-[#0284c7] via-[#4f67ee] to-[#a870f7]",
+      icon: IconBook,
       imageSrc: "/upload/Research.png",
-      imageAlt: "Research Paper illustration"
+      imageAlt: "Research Paper illustration",
+      imgWidth: 98,
+      imgHeight: 108,
+      imgPos: "right-6 sm:right-8 top-2.5 w-[98px] h-[108px]"
     },
     { 
       name: "Report", 
       desc: "Formal structured reports", 
-      gradient: "from-[#5b5bf7] via-[#9b53f8] to-[#f472b6]",
-      icon: IconClipboardText,
+      gradient: "from-[#4f67ee] via-[#855fe8] to-[#e464c8]",
+      icon: IconReportAnalytics,
       imageSrc: "/upload/Report.png",
-      imageAlt: "Report illustration"
+      imageAlt: "Report illustration",
+      imgWidth: 78,
+      imgHeight: 122,
+      imgPos: "right-7 sm:right-9 top-2 w-[78px] h-[122px]"
     },
   ];
 
@@ -125,7 +137,7 @@ export default function DashboardOverview() {
         </div>
       </div>
 
-      {/* 4 Action Cards Row - Exact Height 174px with Faded Frosted Glass & Uploaded Assets */}
+      {/* 4 Action Cards Row - Exact Height 174px with Bottom Blur Layer & Submerged Illustrations */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 w-full">
         {categories.map((cat) => {
           const IconBadge = cat.icon;
@@ -133,54 +145,57 @@ export default function DashboardOverview() {
           return (
             <div 
               key={cat.name} 
-              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] h-[174px] relative overflow-hidden flex flex-col justify-between group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
+              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] h-[174px] relative overflow-hidden group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
             >
               {/* Background ambient light */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl pointer-events-none z-0" />
 
               {/* Top-Left Translucent Badge */}
-              <div className="p-3.5 z-10 flex items-start justify-between">
-                <div className="w-7 h-7 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-xs">
+              <div className="absolute top-3.5 left-3.5 z-20">
+                <div className="w-7 h-7 rounded-lg bg-white/25 backdrop-blur-md border border-white/35 flex items-center justify-center text-white shadow-xs">
                   <IconBadge className="w-4 h-4" />
                 </div>
               </div>
 
-              {/* Official Uploaded Asset Illustration from /upload folder */}
-              <div className="absolute right-3.5 top-2 w-[90px] h-[105px] pointer-events-none z-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+              {/* Uploaded Asset Illustration (Layered at z-10, top portion clear, bottom portion submerged behind the blurred layer) */}
+              <div className={`absolute z-10 ${cat.imgPos} pointer-events-none transition-transform duration-300 group-hover:scale-105 flex items-center justify-center`}>
                 <Image
                   src={cat.imageSrc}
                   alt={cat.imageAlt}
-                  width={90}
-                  height={105}
-                  className="object-contain drop-shadow-md select-none"
+                  width={cat.imgWidth}
+                  height={cat.imgHeight}
+                  className="object-contain drop-shadow-sm select-none"
                   priority
                 />
               </div>
 
-              {/* Bottom Frosted Glass Bar with Upper Corners Fade-Out */}
+              {/* Frosted Glass Layer with Upper Edge Fade (Layered at z-20, blurs the bottom section of the illustration) */}
               <div 
-                className="z-10 p-3.5 pt-4 flex items-end justify-between rounded-b-[24px] relative"
+                className="absolute bottom-0 left-0 right-0 h-[68px] z-20 pointer-events-none rounded-b-[24px]"
                 style={{
-                  background: "linear-gradient(to top, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.16) 65%, rgba(255, 255, 255, 0.0) 100%)",
+                  background: "linear-gradient(to bottom, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.28) 100%)",
                   backdropFilter: "blur(14px)",
                   WebkitBackdropFilter: "blur(14px)",
-                  maskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.7) 82%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.7) 82%, transparent 100%)"
+                  maskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.75) 80%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.75) 80%, transparent 100%)"
                 }}
-              >
-                <div className="flex flex-col">
-                  <span className="font-bold text-white text-[15px] leading-tight drop-shadow-xs">
+              />
+
+              {/* Content Layer (Layered at z-30: Crisp title, subtitle, and Start Generating button) */}
+              <div className="absolute bottom-0 left-0 right-0 h-[68px] z-30 px-3.5 pb-3 flex items-end justify-between pointer-events-none">
+                <div className="flex flex-col pointer-events-auto">
+                  <span className="font-bold text-white text-[15px] sm:text-[16px] leading-tight drop-shadow-xs tracking-tight">
                     {cat.name}
                   </span>
-                  <span className="text-[10px] text-white/90 font-medium leading-tight mt-0.5 max-w-[130px] drop-shadow-xs">
+                  <span className="text-[10px] sm:text-[10.5px] text-white/90 font-medium leading-tight mt-0.5 max-w-[125px] drop-shadow-xs">
                     {cat.desc}
                   </span>
                 </div>
 
-                <Link href="/dashboard/generate" className="flex-shrink-0">
+                <Link href="/dashboard/generate" className="flex-shrink-0 pointer-events-auto">
                   <button 
                     type="button"
-                    className="bg-white/95 hover:bg-white text-slate-900 text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
+                    className="bg-white/95 hover:bg-white text-slate-900 text-[10px] sm:text-[10.5px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
                   >
                     <span>Start Generating</span>
                     <IconArrowRight className="w-3 h-3 text-slate-800" />

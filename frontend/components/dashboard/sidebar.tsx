@@ -47,38 +47,60 @@ export function Sidebar({
       
       {/* Top Section */}
       <div className="flex flex-col gap-5 overflow-y-auto no-scrollbar">
-        {/* Brand / Logo + Collapse Icon */}
+        {/* Brand / Logo + Collapse / Reveal Icon */}
         <div className={`flex items-center pt-1 px-2 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
-          <Link href="/" className="inline-flex items-center gap-3 group">
-            <div className="relative w-8 h-8 flex-shrink-0">
-              <Image 
-                src="/images/genas-logo.png" 
-                alt="Genas Logo" 
-                fill 
-                className="object-contain transition-transform group-hover:scale-105"
-              />
-            </div>
-            {!isCollapsed && (
-              <span className="text-[22px] font-bold text-slate-900 tracking-tight">
-                Genas
-              </span>
-            )}
-          </Link>
+          {isCollapsed ? (
+            /* When collapsed: logo is shown by default. When hovered, logo hides and revealer icon appears */
+            <div 
+              onClick={() => setIsCollapsed(false)}
+              className="relative w-10 h-10 flex items-center justify-center cursor-pointer group rounded-xl hover:bg-white transition-all shadow-xs"
+              title="Expand sidebar"
+              role="button"
+              aria-label="Expand sidebar"
+            >
+              {/* Logo: visible by default, hidden when hovered */}
+              <div className="relative w-8 h-8 transition-opacity duration-200 group-hover:opacity-0 pointer-events-auto group-hover:pointer-events-none flex items-center justify-center">
+                <Image 
+                  src="/images/genas-logo.png" 
+                  alt="Genas Logo" 
+                  fill 
+                  className="object-contain"
+                />
+              </div>
 
-          {/* Collapse / Reveal Button */}
-          <button
-            type="button"
-            onClick={() => setIsCollapsed((prev) => !prev)}
-            className="p-1.5 rounded-xl hover:bg-white text-slate-400 hover:text-slate-800 transition-colors"
-            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {isCollapsed ? (
-              <IconLayoutSidebarRightCollapse className="w-5 h-5 text-slate-600" />
-            ) : (
-              <IconLayoutSidebarLeftCollapse className="w-5 h-5" />
-            )}
-          </button>
+              {/* Collapser/Revealer Icon: hidden by default, visible only when logo container is hovered */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#2458f5]">
+                <IconLayoutSidebarRightCollapse className="w-5 h-5" />
+              </div>
+            </div>
+          ) : (
+            /* When expanded: logo + Genas text on left, collapse icon on right */
+            <>
+              <Link href="/" className="inline-flex items-center gap-3 group">
+                <div className="relative w-8 h-8 flex-shrink-0">
+                  <Image 
+                    src="/images/genas-logo.png" 
+                    alt="Genas Logo" 
+                    fill 
+                    className="object-contain transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <span className="text-[22px] font-bold text-slate-900 tracking-tight">
+                  Genas
+                </span>
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => setIsCollapsed(true)}
+                className="p-1.5 rounded-xl hover:bg-white text-slate-400 hover:text-slate-800 transition-colors"
+                title="Collapse sidebar"
+                aria-label="Collapse sidebar"
+              >
+                <IconLayoutSidebarLeftCollapse className="w-5 h-5" />
+              </button>
+            </>
+          )}
         </div>
 
         {/* Navigation items */}
