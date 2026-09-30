@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       SELECT id FROM waitlist WHERE email = ${email} LIMIT 1
     `;
 
-    if (existing && existing.length > 0) {
+    if (Array.isArray(existing) && existing.length > 0) {
       return NextResponse.json(
         { error: 'You are already on the waitlist!' },
         { status: 409 }
