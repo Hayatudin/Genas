@@ -1,8 +1,18 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: Request) {
   try {
+    if (!process.env.DATABASE_URL) {
+      console.error('DATABASE_URL environment variable is not defined.');
+      return NextResponse.json(
+        { error: 'Database service is currently unavailable.' },
+        { status: 503 }
+      );
+    }
+
     const { email } = await request.json();
 
     // 1. Basic Validation
