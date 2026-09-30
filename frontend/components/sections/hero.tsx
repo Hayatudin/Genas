@@ -42,10 +42,10 @@ export function Hero() {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
-          <Link href="/waitlist">
-            <Button className="rounded-full bg-[#3b60ff] text-white px-6 h-14 transition-all flex items-center gap-2 group font-semibold text-[15px]">
+          <Link href="/signup">
+            <Button className="rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white px-7 h-14 transition-all flex items-center gap-2 group font-semibold text-[15px] shadow-lg shadow-blue-500/25">
               <IconSparkles className="w-[18px] h-[18px]" />
-              Join Waitlist
+              Start Generating Free
             </Button>
           </Link>
           <Link href="/#how-it-works">

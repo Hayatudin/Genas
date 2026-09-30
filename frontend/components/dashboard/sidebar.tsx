@@ -3,114 +3,138 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { 
-  IconLayoutDashboard, 
+  IconLayout2,
   IconSparkles, 
   IconTemplate, 
   IconHeart, 
   IconHistory, 
-  IconFolder, 
-  IconCreditCard, 
+  IconFileText, 
+  IconCalendarCheck, 
   IconSettings,
   IconStarFilled,
-  IconArrowUpRight,
-  IconLayoutSidebarLeftCollapse
+  IconArrowUpRight
 } from "@tabler/icons-react";
 
-export function Sidebar({ isCollapsed, setIsCollapsed }: { isCollapsed: boolean, setIsCollapsed: (val: boolean) => void }) {
+export function Sidebar({ 
+  isCollapsed, 
+  setIsCollapsed 
+}: { 
+  isCollapsed: boolean; 
+  setIsCollapsed: (val: boolean) => void;
+}) {
   const pathname = usePathname();
 
   const links = [
-    { label: "Dashboard", href: "/dashboard", icon: IconLayoutDashboard },
+    { label: "Dashboard", href: "/dashboard", icon: IconLayout2 },
     { label: "Generate", href: "/dashboard/generate", icon: IconSparkles },
     { label: "Templates", href: "/dashboard/templates", icon: IconTemplate },
     { label: "Favorites", href: "/dashboard/favorites", icon: IconHeart },
     { label: "History", href: "/dashboard/history", icon: IconHistory },
-    { label: "My Documents", href: "/dashboard/documents", icon: IconFolder },
-    { label: "Usage & Plan", href: "/dashboard/billing", icon: IconCreditCard },
+    { label: "My Documents", href: "/dashboard/documents", icon: IconFileText },
+    { label: "Usage & Plan", href: "/dashboard/billing", icon: IconCalendarCheck },
     { label: "Settings", href: "/dashboard/settings", icon: IconSettings },
   ];
 
   return (
-    <aside className={`h-screen bg-[#f8fafc]/50 border-r border-slate-200 flex flex-col hidden lg:flex fixed left-0 top-0 transition-all duration-300 z-50 ${isCollapsed ? 'w-[80px]' : 'w-[280px]'}`}>
-      {/* Brand & Collapse */}
-      <div className={`h-20 flex items-center px-6 ${isCollapsed ? 'justify-center border-b border-slate-100' : 'justify-between'}`}>
-        <Link href="/" className="flex items-center gap-3">
-          <div className="relative w-8 h-8 flex-shrink-0">
-            <Image 
-              src="/images/genas-logo.png" 
-              alt="Genas Logo" 
-              fill 
-              className="object-contain"
-            />
-          </div>
-          {!isCollapsed && (
-            <span className="text-[22px] font-bold text-slate-800 tracking-tight whitespace-nowrap">
-              Genas
-            </span>
-          )}
-        </Link>
+    <aside className={`flex flex-col justify-between flex-shrink-0 transition-all duration-300 hidden lg:flex ${isCollapsed ? 'w-[76px]' : 'w-[230px]'}`}>
+      
+      {/* Top Section */}
+      <div className="flex flex-col gap-6">
+        {/* Brand / Logo */}
+        <div className="px-2 pt-1">
+          <Link href="/" className="inline-flex items-center gap-3 group">
+            <div className="relative w-8 h-8 flex-shrink-0">
+              <Image 
+                src="/images/genas-logo.png" 
+                alt="Genas Logo" 
+                fill 
+                className="object-contain transition-transform group-hover:scale-105"
+              />
+            </div>
+            {!isCollapsed && (
+              <span className="text-[22px] font-bold text-slate-900 tracking-tight">
+                Genas
+              </span>
+            )}
+          </Link>
+        </div>
 
-        {!isCollapsed && (
-          <button 
-            onClick={() => setIsCollapsed(true)}
-            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 transition-colors"
-          >
-            <IconLayoutSidebarLeftCollapse className="w-5 h-5" />
-          </button>
-        )}
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 px-4 py-4 overflow-y-auto w-full no-scrollbar">
-        <ul className="flex flex-col gap-2">
+        {/* Navigation items */}
+        <nav className="flex flex-col gap-1.5 w-full">
           {links.map((link) => {
-            const isActive = pathname === link.href || (link.href !== "/dashboard" && pathname.startsWith(link.href));
-            
+            const isActive = pathname === link.href;
+            const Icon = link.icon;
+
             return (
-              <li key={link.label}>
-                <Link 
-                  href={link.href}
-                  className={`flex items-center gap-3 py-3 rounded-xl transition-all font-semibold ${
-                    isActive 
-                      ? "bg-[#3b60ff] text-white shadow-md" 
-                      : "text-slate-500 hover:text-slate-800 hover:bg-white"
-                  } ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
-                  title={isCollapsed ? link.label : undefined}
-                >
-                  <link.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-white" : "text-slate-400"}`} />
-                  {!isCollapsed && <span className="text-[14px] whitespace-nowrap">{link.label}</span>}
-                </Link>
-              </li>
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`flex items-center gap-3.5 py-3 rounded-2xl font-semibold text-[14px] transition-all ${
+                  isActive
+                    ? "bg-[#2458f5] text-white shadow-md shadow-blue-500/20"
+                    : "text-[#5e6e82] hover:text-slate-900 hover:bg-white/60"
+                } ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
+                title={isCollapsed ? link.label : undefined}
+              >
+                <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-white" : "text-[#7a8a9e]"}`} />
+                {!isCollapsed && <span className="whitespace-nowrap">{link.label}</span>}
+              </Link>
             );
           })}
-        </ul>
-      </nav>
+        </nav>
+      </div>
 
-      {/* Premium CTA */}
-      <div className="p-4 mb-4">
-        {isCollapsed ? (
-          <div className="bg-[#0b3bc9] rounded-xl p-3 flex justify-center cursor-pointer shadow-lg group">
-             <IconStarFilled className="w-5 h-5 flex-shrink-0 text-[#ffc107] group-hover:scale-110 transition-transform" title="Get Premium" />
+      {/* Bottom Get Premium Card */}
+      <div className="pt-6">
+        {!isCollapsed ? (
+          <div className="bg-[#0546e0] rounded-[26px] p-5 relative overflow-hidden shadow-lg shadow-blue-700/20 text-white">
+            {/* Wave SVG Background matching the design */}
+            <svg
+              className="absolute -bottom-2 -right-4 w-[160px] h-[130px] opacity-40 pointer-events-none"
+              viewBox="0 0 200 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M40 200C70 140 130 110 200 130V200H40Z"
+                fill="#00e5ff"
+              />
+              <path
+                d="M0 200C50 160 110 140 200 165V200H0Z"
+                fill="#00b0ff"
+              />
+              <circle cx="170" cy="80" r="45" fill="#3b82f6" fillOpacity="0.4" />
+            </svg>
+
+            <div className="relative z-10">
+              <h4 className="flex items-center gap-1.5 text-white font-bold text-[16px] tracking-tight">
+                <span>Get Premium</span>
+                <IconStarFilled className="w-4 h-4 text-[#fbbf24]" />
+              </h4>
+              <p className="text-[11px] text-blue-100/80 mt-1 mb-4 leading-relaxed font-medium">
+                Unlock All premium features and continue generating more
+              </p>
+
+              <Link href="/dashboard/billing" className="block">
+                <button className="w-full bg-white hover:bg-slate-50 text-[#0546e0] font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-between shadow-sm transition-transform active:scale-95">
+                  <span>Upgrade</span>
+                  <div className="w-5 h-5 rounded-md bg-blue-50 flex items-center justify-center text-[#0546e0]">
+                    <IconArrowUpRight className="w-3.5 h-3.5" />
+                  </div>
+                </button>
+              </Link>
+            </div>
           </div>
         ) : (
-          <div className="bg-[#0b3bc9] rounded-2xl p-5 relative overflow-hidden shadow-lg whitespace-nowrap">
-             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-400/30 to-transparent pointer-events-none"></div>
-             
-             <h4 className="flex items-center gap-2 text-white font-bold mb-2 relative z-10">
-               Get Premium <IconStarFilled className="w-4 h-4 text-[#ffc107]" />
-             </h4>
-             <p className="text-[12px] text-blue-100/80 mb-4 leading-relaxed font-medium relative z-10 whitespace-normal">
-               Unlock All premium features and continue generating more
-             </p>
-             
-             <Button className="w-full bg-white text-[#0b3bc9] hover:bg-slate-50 rounded-lg h-9 text-[13px] font-bold shadow-sm flex items-center justify-between px-4 relative z-10">
-               Upgrade <IconArrowUpRight className="w-4 h-4 flex-shrink-0 opacity-70" />
-             </Button>
-          </div>
+          <Link href="/dashboard/billing" className="block">
+            <div className="bg-[#0546e0] rounded-2xl p-3 flex justify-center cursor-pointer shadow-md group">
+              <IconStarFilled className="w-5 h-5 text-[#fbbf24] group-hover:scale-110 transition-transform" title="Get Premium" />
+            </div>
+          </Link>
         )}
       </div>
+
     </aside>
   );
 }

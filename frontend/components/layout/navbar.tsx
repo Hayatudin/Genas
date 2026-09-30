@@ -50,12 +50,12 @@ export function Navbar() {
 
         {/* Right CTA */}
         <div className="flex items-center space-x-2 md:space-x-4">
-          <Link href="/waitlist" className="hidden md:block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
+          <Link href="/login" className="hidden md:block text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
             Login
           </Link>
-          <Link href="/waitlist" className="hidden sm:block">
-            <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-6 md:px-8 py-3 text-sm h-auto transition-transform active:scale-95">
-              Join Waitlist
+          <Link href="/signup" className="hidden sm:block">
+            <Button className="rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white px-6 md:px-8 py-3 text-sm h-auto transition-transform active:scale-95 shadow-md shadow-blue-500/20">
+              Get Started
             </Button>
           </Link>
           
@@ -89,20 +89,20 @@ export function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-md font-medium text-slate-700 hover:text-[#3b60ff] transition-colors w-full text-center py-2"
+                className="text-md font-medium text-slate-700 hover:text-[#2458f5] transition-colors w-full text-center py-2"
               >
                 {link.label} 
               </Link>
             ))}
             <div className="w-full h-px bg-slate-100 my-2" />
-            <Link href="/waitlist" onClick={() => setIsOpen(false)} className="w-full text-center">
-              <span className="text-md font-semibold text-slate-700 hover:text-[#3b60ff] transition-colors inline-block py-2">
+            <Link href="/login" onClick={() => setIsOpen(false)} className="w-full text-center">
+              <span className="text-md font-semibold text-slate-700 hover:text-[#2458f5] transition-colors inline-block py-2">
                 Login
               </span>
             </Link>
-            <Link href="/waitlist" onClick={() => setIsOpen(false)} className="w-full">
-              <Button className="w-full rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white py-4 text-base h-auto shadow-lg shadow-blue-500/20">
-                Join Waitlist
+            <Link href="/signup" onClick={() => setIsOpen(false)} className="w-full">
+              <Button className="w-full rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white py-4 text-base h-auto shadow-lg shadow-blue-500/20">
+                Get Started Free
               </Button>
             </Link>
           </motion.div>

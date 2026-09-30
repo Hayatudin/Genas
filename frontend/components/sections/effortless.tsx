@@ -155,10 +155,10 @@ export function Effortless() {
             <p className="text-base lg:text-lg text-[#737373] font-medium leading-relaxed mb-8">
               AI trained for assignments, essays, and research. delivering clear structure, academic tone, and accurate formatting.
             </p>
-            <Link href="/waitlist">
-              <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-5 h-12 transition-all">
-                <IconSparkles className="w-6 h-6 mr-1" />
-                Join Waitlist
+            <Link href="/signup">
+              <Button className="rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white px-6 h-12 transition-all shadow-md shadow-blue-500/20 font-semibold">
+                <IconSparkles className="w-5 h-5 mr-1.5" />
+                Get Started
               </Button>
             </Link>
           </div>
@@ -273,10 +273,10 @@ export function Effortless() {
             <p className="text-base lg:text-lg text-[#737373] font-medium leading-relaxed mb-8">
               Choose your preferred document template, structure, depth, and sections before generation AI adapts instantly.
             </p>
-            <Link href="/waitlist">
-              <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-5 h-12 transition-all">
-                <IconSparkles className="w-6 h-6 mr-1" />
-                Join Waitlist
+            <Link href="/signup">
+              <Button className="rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white px-6 h-12 transition-all shadow-md shadow-blue-500/20 font-semibold">
+                <IconSparkles className="w-5 h-5 mr-1.5" />
+                Get Started
               </Button>
             </Link>
           </div>
@@ -289,10 +289,10 @@ export function Effortless() {
             <p className="text-base lg:text-lg text-[#737373] font-medium leading-relaxed mb-8">
               Generate content in APA, MLA, Chicago, or custom formats ready for submission or review.
             </p>
-            <Link href="/waitlist">
-              <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-5 h-12 transition-all">
-                <IconSparkles className="w-6 h-6 mr-1" />
-                Join Waitlist
+            <Link href="/signup">
+              <Button className="rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white px-6 h-12 transition-all shadow-md shadow-blue-500/20 font-semibold">
+                <IconSparkles className="w-5 h-5 mr-1.5" />
+                Get Started
               </Button>
             </Link>
           </div>
@@ -453,10 +453,10 @@ export function Effortless() {
             <p className="text-base lg:text-lg text-[#737373] font-medium leading-relaxed mb-8">
               Download clean, submission-ready files in PDF, DOCX or PPT no extra formatting needed.
             </p>
-            <Link href="/waitlist">
-              <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-5 h-12 transition-all">
-                <IconSparkles className="w-6 h-6 mr-1" />
-                Join Waitlist
+            <Link href="/signup">
+              <Button className="rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white px-6 h-12 transition-all shadow-md shadow-blue-500/20 font-semibold">
+                <IconSparkles className="w-5 h-5 mr-1.5" />
+                Get Started
               </Button>
             </Link>
           </div>
@@ -469,10 +469,10 @@ export function Effortless() {
             <p className="text-base lg:text-lg text-[#737373] font-medium leading-relaxed mb-8">
               All your generated documents are saved, categorized, and easy to manage in one place.
             </p>
-            <Link href="/waitlist">
-              <Button className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-5 h-12 transition-all">
-                <IconSparkles className="w-6 h-6 mr-1" />
-                Join Waitlist
+            <Link href="/signup">
+              <Button className="rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white px-6 h-12 transition-all shadow-md shadow-blue-500/20 font-semibold">
+                <IconSparkles className="w-5 h-5 mr-1.5" />
+                Get Started
               </Button>
             </Link>
           </div>

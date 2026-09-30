@@ -28,10 +28,10 @@ export function FinalCta() {
           <p className="text-lg md:text-xl text-[#E6E6E6] font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
             Generate structured assignments, essays, and research papers ready to submit in minutes.
           </p>
-          <Link href="/waitlist">
-            <Button className="rounded-full bg-white hover:bg-slate-100 text-[#3b60ff] px-8 h-12 transition-all font-bold text-[15px]">
+          <Link href="/signup">
+            <Button className="rounded-full bg-white hover:bg-slate-100 text-[#2458f5] px-8 h-12 transition-all font-bold text-[15px] shadow-lg shadow-black/20">
               <IconSparkles className="w-4 h-4 mr-2" />
-              Join Waitlist
+              Start Generating Free
             </Button>
           </Link>
         </div>

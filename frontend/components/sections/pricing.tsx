@@ -79,9 +79,9 @@ export function Pricing() {
                 </div>
               ))}
            </div>
-           <Link href="/waitlist" className="w-full">
-             <Button className="w-full rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white h-12 transition-all font-semibold">
-               Join Waitlist
+           <Link href="/signup" className="w-full">
+             <Button className="w-full rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white h-12 transition-all font-semibold">
+               Get Started Free
              </Button>
            </Link>
         </div>
@@ -127,9 +127,9 @@ export function Pricing() {
                 </div>
               ))}
            </div>
-           <Link href="/waitlist" className="w-full">
+           <Link href="/signup" className="w-full">
              <Button className="w-full rounded-full bg-white hover:bg-slate-50 text-slate-900 h-12 transition-all font-semibold">
-               Join Waitlist
+               Upgrade to Pro
              </Button>
            </Link>
         </div>
@@ -170,9 +170,9 @@ export function Pricing() {
                 </div>
               ))}
            </div>
-           <Link href="/waitlist" className="w-full">
-             <Button className="w-full rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white h-12 transition-all font-semibold">
-               Join Waitlist
+           <Link href="/signup" className="w-full">
+             <Button className="w-full rounded-full bg-[#2458f5] hover:bg-[#1a4cd2] text-white h-12 transition-all font-semibold">
+               Start with Pro
              </Button>
            </Link>
         </div>
