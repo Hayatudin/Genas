@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/lib/auth-context";
 import { 
   IconArrowRight, 
@@ -18,36 +19,56 @@ import {
 
 export default function DashboardOverview() {
   const { user } = useAuth();
-  const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(0); // open by default on item 0 like in screenshot
+  
+  // Options menu is closed (null) by default
+  const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  // Close menu on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setActiveMenuIndex(null);
+      }
+    }
+    if (activeMenuIndex !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [activeMenuIndex]);
 
   const categories = [
     { 
       name: "Assignment", 
       desc: "Structured academic submission", 
-      gradient: "from-[#1aa5ff] via-[#6f7cf9] to-[#f694e9]",
+      gradient: "from-[#1fa2ff] via-[#6d76f8] to-[#f694e9]",
       icon: IconNotes,
-      illustrationType: "assignment"
+      imageSrc: "/upload/Assignment.png",
+      imageAlt: "Assignment illustration"
     },
     { 
       name: "Essay", 
       desc: "Argumentative, descriptive, analytical", 
       gradient: "from-[#0ba5ec] via-[#5d6cf8] to-[#ea63ca]",
       icon: IconFileText,
-      illustrationType: "essay"
+      imageSrc: "/upload/Essay.png",
+      imageAlt: "Essay illustration"
     },
     { 
       name: "Research Paper", 
       desc: "Full academic research format", 
       gradient: "from-[#0284c7] via-[#4361ee] to-[#b57bf7]",
       icon: IconFileSearch,
-      illustrationType: "research"
+      imageSrc: "/upload/Research.png",
+      imageAlt: "Research Paper illustration"
     },
     { 
       name: "Report", 
       desc: "Formal structured reports", 
       gradient: "from-[#5b5bf7] via-[#9b53f8] to-[#f472b6]",
       icon: IconClipboardText,
-      illustrationType: "report"
+      imageSrc: "/upload/Report.png",
+      imageAlt: "Report illustration"
     },
   ];
 
@@ -59,7 +80,7 @@ export default function DashboardOverview() {
   ];
 
   return (
-    <div className="flex flex-col gap-9 w-full">
+    <div className="flex flex-col gap-8 w-full">
       
       {/* Top Header inside white canvas */}
       <div className="flex items-center justify-between w-full">
@@ -74,7 +95,11 @@ export default function DashboardOverview() {
 
         <div className="flex items-center gap-6">
           {/* Notification Bell */}
-          <button className="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-700 transition-colors focus:outline-none">
+          <button 
+            type="button"
+            className="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-700 transition-colors focus:outline-none"
+            aria-label="Notifications"
+          >
             <IconBell className="w-5 h-5 text-slate-700" />
             <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#2458f5] rounded-full ring-2 ring-white"></span>
           </button>
@@ -100,17 +125,17 @@ export default function DashboardOverview() {
         </div>
       </div>
 
-      {/* 4 Action Cards Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
+      {/* 4 Action Cards Row - Exact Height 174px with Faded Frosted Glass & Uploaded Assets */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 w-full">
         {categories.map((cat) => {
           const IconBadge = cat.icon;
 
           return (
             <div 
               key={cat.name} 
-              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] h-[195px] relative overflow-hidden flex flex-col justify-between group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
+              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] h-[174px] relative overflow-hidden flex flex-col justify-between group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
             >
-              {/* Background ambient lighting */}
+              {/* Background ambient light */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl pointer-events-none" />
 
               {/* Top-Left Translucent Badge */}
@@ -120,84 +145,43 @@ export default function DashboardOverview() {
                 </div>
               </div>
 
-              {/* Center 3D Illustration Graphic matching each type */}
-              <div className="absolute right-4 top-2 w-[110px] h-[110px] pointer-events-none z-0 flex items-center justify-center transition-transform group-hover:scale-105">
-                {cat.illustrationType === "assignment" && (
-                  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
-                    <rect x="25" y="15" width="55" height="70" rx="4" fill="#ffffff" />
-                    <rect x="32" y="25" width="22" height="4" rx="2" fill="#2458f5" />
-                    <circle cx="65" cy="27" r="5" fill="#e0e7ff" stroke="#2458f5" strokeWidth="1.5" />
-                    <rect x="32" y="38" width="40" height="3" rx="1.5" fill="#e2e8f0" />
-                    <rect x="32" y="46" width="35" height="3" rx="1.5" fill="#e2e8f0" />
-                    <rect x="32" y="54" width="38" height="3" rx="1.5" fill="#e2e8f0" />
-                    <rect x="32" y="62" width="28" height="3" rx="1.5" fill="#e2e8f0" />
-                    {/* Shadow overlay sheet behind */}
-                    <rect x="18" y="22" width="45" height="58" rx="4" fill="#ffffff" opacity="0.6" />
-                  </svg>
-                )}
-
-                {cat.illustrationType === "essay" && (
-                  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
-                    {/* Amber folder background */}
-                    <path d="M20 30L35 30L42 36L78 36C81 36 83 38 83 41L83 82C83 85 81 87 78 87L20 87C17 87 15 85 15 82L15 35C15 32 17 30 20 30Z" fill="#fbbf24" opacity="0.9" />
-                    {/* Document paper inside */}
-                    <rect x="26" y="20" width="48" height="62" rx="4" fill="#ffffff" />
-                    <rect x="33" y="29" width="34" height="3.5" rx="1.5" fill="#94a3b8" />
-                    <rect x="33" y="37" width="30" height="2.5" rx="1" fill="#cbd5e1" />
-                    <rect x="33" y="44" width="34" height="2.5" rx="1" fill="#cbd5e1" />
-                    <rect x="33" y="51" width="24" height="2.5" rx="1" fill="#cbd5e1" />
-                    {/* Blue Pen */}
-                    <rect x="68" y="40" width="4" height="35" rx="2" fill="#2458f5" transform="rotate(-25 68 40)" />
-                    <polygon points="56,76 60,78 54,82" fill="#1e293b" />
-                  </svg>
-                )}
-
-                {cat.illustrationType === "research" && (
-                  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
-                    {/* Paper */}
-                    <rect x="25" y="16" width="54" height="68" rx="4" fill="#ffffff" />
-                    <rect x="33" y="26" width="38" height="3" rx="1.5" fill="#94a3b8" />
-                    <rect x="33" y="34" width="32" height="2.5" rx="1" fill="#cbd5e1" />
-                    <rect x="33" y="41" width="38" height="2.5" rx="1" fill="#cbd5e1" />
-                    <rect x="33" y="48" width="28" height="2.5" rx="1" fill="#cbd5e1" />
-                    {/* 3D Magnifying glass over paper */}
-                    <circle cx="48" cy="46" r="14" fill="#e0f2fe" fillOpacity="0.6" stroke="#0284c7" strokeWidth="4" />
-                    <line x1="58" y1="56" x2="72" y2="70" stroke="#0284c7" strokeWidth="5" strokeLinecap="round" />
-                    {/* Pen on the right */}
-                    <rect x="78" y="32" width="3.5" height="32" rx="1.5" fill="#0369a1" />
-                  </svg>
-                )}
-
-                {cat.illustrationType === "report" && (
-                  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
-                    {/* Clipboard board */}
-                    <rect x="22" y="15" width="56" height="72" rx="6" fill="#f59e0b" opacity="0.9" />
-                    {/* Top Clip */}
-                    <rect x="40" y="10" width="20" height="9" rx="2.5" fill="#94a3b8" stroke="#475569" strokeWidth="1" />
-                    {/* Paper sheet */}
-                    <rect x="27" y="21" width="46" height="60" rx="3" fill="#ffffff" />
-                    <rect x="34" y="30" width="32" height="3.5" rx="1.5" fill="#64748b" />
-                    <rect x="34" y="39" width="32" height="2.5" rx="1" fill="#cbd5e1" />
-                    <rect x="34" y="46" width="26" height="2.5" rx="1" fill="#cbd5e1" />
-                    <rect x="34" y="53" width="32" height="2.5" rx="1" fill="#cbd5e1" />
-                    <rect x="34" y="60" width="20" height="2.5" rx="1" fill="#cbd5e1" />
-                  </svg>
-                )}
+              {/* Official Uploaded Asset Illustration from /upload folder */}
+              <div className="absolute right-3.5 top-2 w-[90px] h-[105px] pointer-events-none z-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src={cat.imageSrc}
+                  alt={cat.imageAlt}
+                  width={90}
+                  height={105}
+                  className="object-contain drop-shadow-md select-none"
+                  priority
+                />
               </div>
 
-              {/* Bottom Frosted Glass Bar */}
-              <div className="z-10 p-3.5 bg-white/20 backdrop-blur-md border-t border-white/25 rounded-b-[24px] flex items-end justify-between">
+              {/* Bottom Frosted Glass Bar with Upper Corners Fade-Out */}
+              <div 
+                className="z-10 p-3.5 pt-4 flex items-end justify-between rounded-b-[24px] relative"
+                style={{
+                  background: "linear-gradient(to top, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.16) 65%, rgba(255, 255, 255, 0.0) 100%)",
+                  backdropFilter: "blur(14px)",
+                  WebkitBackdropFilter: "blur(14px)",
+                  maskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.7) 82%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.7) 82%, transparent 100%)"
+                }}
+              >
                 <div className="flex flex-col">
                   <span className="font-bold text-white text-[15px] leading-tight drop-shadow-xs">
                     {cat.name}
                   </span>
-                  <span className="text-[10px] text-white/90 font-medium leading-tight mt-0.5 max-w-[140px] drop-shadow-xs">
+                  <span className="text-[10px] text-white/90 font-medium leading-tight mt-0.5 max-w-[130px] drop-shadow-xs">
                     {cat.desc}
                   </span>
                 </div>
 
                 <Link href="/dashboard/generate" className="flex-shrink-0">
-                  <button className="bg-white/95 hover:bg-white text-slate-900 text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95">
+                  <button 
+                    type="button"
+                    className="bg-white/95 hover:bg-white text-slate-900 text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
+                  >
                     <span>Start Generating</span>
                     <IconArrowRight className="w-3 h-3 text-slate-800" />
                   </button>
@@ -210,7 +194,7 @@ export default function DashboardOverview() {
       </div>
 
       {/* Bottom Section: Continue Working + Usage Overview */}
-      <div className="flex flex-col xl:flex-row gap-8 items-start w-full">
+      <div className="flex flex-col xl:flex-row gap-6 xl:gap-8 items-start w-full">
         
         {/* Left Column: Continue Working */}
         <div className="flex-1 w-full min-w-0 flex flex-col">
@@ -218,7 +202,7 @@ export default function DashboardOverview() {
             Continue Working
           </h2>
 
-          <div className="flex flex-col w-full relative">
+          <div ref={menuRef} className="flex flex-col w-full relative overflow-visible">
             {recentDocs.map((doc, idx) => {
               const isMenuOpen = activeMenuIndex === idx;
 
@@ -241,14 +225,14 @@ export default function DashboardOverview() {
                   </div>
 
                   {/* Middle Column: Type */}
-                  <div className="w-28 sm:w-36 text-left flex-shrink-0 px-2">
+                  <div className="w-24 sm:w-36 text-left flex-shrink-0 px-2">
                     <span className="text-[13px] sm:text-[14px] font-bold text-slate-700">
                       {doc.type}
                     </span>
                   </div>
 
                   {/* Status Column */}
-                  <div className="w-24 sm:w-28 text-left flex-shrink-0">
+                  <div className="w-20 sm:w-28 text-left flex-shrink-0">
                     <span className={`text-[12px] sm:text-[13px] font-bold ${
                       doc.status === "Completed" ? "text-[#16a34a]" : "text-[#22c55e]"
                     }`}>
@@ -256,38 +240,49 @@ export default function DashboardOverview() {
                     </span>
                   </div>
 
-                  {/* Actions (Menu button + optional popup) */}
+                  {/* Actions (Menu button + popover) */}
                   <div className="relative flex-shrink-0">
                     <button 
-                      onClick={() => setActiveMenuIndex(isMenuOpen ? null : idx)}
-                      className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveMenuIndex(isMenuOpen ? null : idx);
+                      }}
+                      className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors focus:outline-none"
+                      aria-label="Document options"
                     >
                       <IconDotsVertical className="w-4 h-4" />
                     </button>
 
-                    {/* Popover Menu matching screenshot */}
+                    {/* Popover Menu - Only visible when explicitly opened */}
                     {isMenuOpen && (
-                      <div className="absolute right-0 top-7 z-30 bg-white border border-slate-200 rounded-xl shadow-lg p-1.5 w-28 flex flex-col text-left text-xs font-semibold text-slate-700 animate-in fade-in zoom-in-95 duration-150">
+                      <div 
+                        className="absolute right-0 top-7 z-40 bg-white border border-slate-200 rounded-xl shadow-xl p-1.5 w-32 flex flex-col text-left text-xs font-semibold text-slate-700 animate-in fade-in zoom-in-95 duration-150"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <button 
+                          type="button"
                           onClick={() => setActiveMenuIndex(null)}
-                          className="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800 flex items-center justify-between"
+                          className="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800 flex items-center justify-between transition-colors"
                         >
                           <span>Open</span>
-                          <IconExternalLink className="w-3 h-3 text-slate-400" />
+                          <IconExternalLink className="w-3.5 h-3.5 text-slate-400" />
                         </button>
                         <button 
+                          type="button"
                           onClick={() => setActiveMenuIndex(null)}
-                          className="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800 flex items-center justify-between"
+                          className="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800 flex items-center justify-between transition-colors"
                         >
                           <span>Edit</span>
-                          <IconEdit className="w-3 h-3 text-slate-400" />
+                          <IconEdit className="w-3.5 h-3.5 text-slate-400" />
                         </button>
                         <button 
+                          type="button"
                           onClick={() => setActiveMenuIndex(null)}
-                          className="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800 flex items-center justify-between"
+                          className="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800 flex items-center justify-between transition-colors"
                         >
                           <span>Download</span>
-                          <IconDownload className="w-3 h-3 text-slate-400" />
+                          <IconDownload className="w-3.5 h-3.5 text-slate-400" />
                         </button>
                       </div>
                     )}
@@ -363,7 +358,10 @@ export default function DashboardOverview() {
             {/* Bottom Upgrade Action */}
             <div className="relative z-10 mt-auto pt-6 flex justify-center">
               <Link href="/dashboard/billing">
-                <button className="bg-white/25 hover:bg-white/35 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-2.5 text-xs font-bold flex items-center gap-2.5 transition-all shadow-md active:scale-95 group">
+                <button 
+                  type="button"
+                  className="bg-white/25 hover:bg-white/35 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-2.5 text-xs font-bold flex items-center gap-2.5 transition-all shadow-md active:scale-95 group"
+                >
                   <span>Upgrade</span>
                   <div className="w-4 h-4 rounded-full bg-white text-[#0047e0] flex items-center justify-center transition-transform group-hover:translate-x-0.5">
                     <IconArrowRight className="w-2.5 h-2.5 stroke-[3]" />

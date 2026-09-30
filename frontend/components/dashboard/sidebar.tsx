@@ -13,7 +13,9 @@ import {
   IconCalendarCheck, 
   IconSettings,
   IconStarFilled,
-  IconArrowUpRight
+  IconArrowUpRight,
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarRightCollapse
 } from "@tabler/icons-react";
 
 export function Sidebar({ 
@@ -21,7 +23,7 @@ export function Sidebar({
   setIsCollapsed 
 }: { 
   isCollapsed: boolean; 
-  setIsCollapsed: (val: boolean) => void;
+  setIsCollapsed: (val: boolean | ((prev: boolean) => boolean)) => void;
 }) {
   const pathname = usePathname();
 
@@ -37,12 +39,16 @@ export function Sidebar({
   ];
 
   return (
-    <aside className={`flex flex-col justify-between flex-shrink-0 transition-all duration-300 hidden lg:flex ${isCollapsed ? 'w-[76px]' : 'w-[230px]'}`}>
+    <aside 
+      className={`sticky top-3 sm:top-5 lg:top-7 h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2.5rem)] lg:h-[calc(100vh-3.5rem)] flex flex-col justify-between flex-shrink-0 transition-all duration-300 hidden lg:flex ${
+        isCollapsed ? 'w-[76px]' : 'w-[230px]'
+      }`}
+    >
       
       {/* Top Section */}
-      <div className="flex flex-col gap-6">
-        {/* Brand / Logo */}
-        <div className="px-2 pt-1">
+      <div className="flex flex-col gap-5 overflow-y-auto no-scrollbar">
+        {/* Brand / Logo + Collapse Icon */}
+        <div className={`flex items-center pt-1 px-2 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
           <Link href="/" className="inline-flex items-center gap-3 group">
             <div className="relative w-8 h-8 flex-shrink-0">
               <Image 
@@ -58,6 +64,21 @@ export function Sidebar({
               </span>
             )}
           </Link>
+
+          {/* Collapse / Reveal Button */}
+          <button
+            type="button"
+            onClick={() => setIsCollapsed((prev) => !prev)}
+            className="p-1.5 rounded-xl hover:bg-white text-slate-400 hover:text-slate-800 transition-colors"
+            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {isCollapsed ? (
+              <IconLayoutSidebarRightCollapse className="w-5 h-5 text-slate-600" />
+            ) : (
+              <IconLayoutSidebarLeftCollapse className="w-5 h-5" />
+            )}
+          </button>
         </div>
 
         {/* Navigation items */}
@@ -85,13 +106,13 @@ export function Sidebar({
         </nav>
       </div>
 
-      {/* Bottom Get Premium Card */}
-      <div className="pt-6">
+      {/* Bottom: Get Premium Container - Stuck to bottom with exact height 187px */}
+      <div className="pt-4 mt-auto">
         {!isCollapsed ? (
-          <div className="bg-[#0546e0] rounded-[26px] p-5 relative overflow-hidden shadow-lg shadow-blue-700/20 text-white">
+          <div className="h-[187px] bg-[#0546e0] rounded-[26px] p-5 relative overflow-hidden shadow-lg shadow-blue-700/20 text-white flex flex-col justify-between">
             {/* Wave SVG Background matching the design */}
             <svg
-              className="absolute -bottom-2 -right-4 w-[160px] h-[130px] opacity-40 pointer-events-none"
+              className="absolute -bottom-2 -right-4 w-[170px] h-[140px] opacity-40 pointer-events-none"
               viewBox="0 0 200 200"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -107,29 +128,35 @@ export function Sidebar({
               <circle cx="170" cy="80" r="45" fill="#3b82f6" fillOpacity="0.4" />
             </svg>
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col">
               <h4 className="flex items-center gap-1.5 text-white font-bold text-[16px] tracking-tight">
                 <span>Get Premium</span>
                 <IconStarFilled className="w-4 h-4 text-[#fbbf24]" />
               </h4>
-              <p className="text-[11px] text-blue-100/80 mt-1 mb-4 leading-relaxed font-medium">
+              <p className="text-[11.5px] text-blue-100/80 mt-1 leading-relaxed font-medium">
                 Unlock All premium features and continue generating more
               </p>
-
-              <Link href="/dashboard/billing" className="block">
-                <button className="w-full bg-white hover:bg-slate-50 text-[#0546e0] font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-between shadow-sm transition-transform active:scale-95">
-                  <span>Upgrade</span>
-                  <div className="w-5 h-5 rounded-md bg-blue-50 flex items-center justify-center text-[#0546e0]">
-                    <IconArrowUpRight className="w-3.5 h-3.5" />
-                  </div>
-                </button>
-              </Link>
             </div>
+
+            <Link href="/dashboard/billing" className="relative z-10 block mt-auto">
+              <button className="w-full bg-white hover:bg-slate-50 text-[#0546e0] font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-between shadow-sm transition-transform active:scale-95">
+                <span>Upgrade</span>
+                <div className="w-5 h-5 rounded-md bg-blue-50 flex items-center justify-center text-[#0546e0]">
+                  <IconArrowUpRight className="w-3.5 h-3.5" />
+                </div>
+              </button>
+            </Link>
           </div>
         ) : (
           <Link href="/dashboard/billing" className="block">
-            <div className="bg-[#0546e0] rounded-2xl p-3 flex justify-center cursor-pointer shadow-md group">
-              <IconStarFilled className="w-5 h-5 text-[#fbbf24] group-hover:scale-110 transition-transform" title="Get Premium" />
+            <div className="h-[187px] bg-[#0546e0] rounded-2xl p-3 flex flex-col items-center justify-between cursor-pointer shadow-md group py-4">
+              <IconStarFilled className="w-6 h-6 text-[#fbbf24] group-hover:scale-110 transition-transform" title="Get Premium" />
+              <span className="text-[10px] font-bold text-white uppercase tracking-wider text-center rotate-[-90deg]">
+                Upgrade
+              </span>
+              <div className="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center text-white">
+                <IconArrowUpRight className="w-3.5 h-3.5" />
+              </div>
             </div>
           </Link>
         )}
