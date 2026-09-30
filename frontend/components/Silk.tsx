@@ -2,8 +2,6 @@
 
 import React, { forwardRef, useMemo, useRef, useLayoutEffect } from 'react';
 import { Canvas, useFrame, useThree, RootState } from '@react-three/fiber';
-// @ts-ignore
-import { Color } from 'three';
 
 type NormalizedRGB = [number, number, number];
 
@@ -132,7 +130,7 @@ const Silk: React.FC<SilkProps> = ({ speed = 5, scale = 1, color = '#7B7481', no
       uSpeed: { value: speed },
       uScale: { value: scale },
       uNoiseIntensity: { value: noiseIntensity },
-      uColor: { value: new Color(...hexToNormalizedRGB(color)) },
+      uColor: { value: hexToNormalizedRGB(color) },
       uRotation: { value: rotation },
       uTime: { value: 0 }
     }),
