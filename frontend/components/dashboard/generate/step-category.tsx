@@ -1,134 +1,195 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { IconArrowRight } from "@tabler/icons-react";
 
 export function StepCategory({ formData, updateForm, onNext }: any) {
+  const router = useRouter();
+
   const categories = [
-    { title: "Assignment", desc: "Structured academic submission with introduction, body, and conclusion.", color: "bg-[#3B60FF]" },
-    { title: "Essay", desc: "Argumentative, descriptive, analytical, or narrative format.", color: "bg-[#e2e8f0]" },
-    { title: "Research Paper", desc: "Full academic research structure with citations and references.", color: "bg-[#f1f5f9]" },
-    { title: "Report", desc: "Formal, structured report with headings and data sections.", color: "bg-[#f97316]" },
+    {
+      id: "Assignment",
+      title: "Assignment",
+      desc: "Structured academic submission with introduction, body, and conclusion.",
+      imageSrc: "/upload/Assignment2.png",
+      imageAlt: "Assignment binder notebook",
+      bgClass: "bg-gradient-to-r from-[#205bf4] to-[#3a7bfb] text-white",
+      isLight: false,
+      imgClass: "absolute -right-2 bottom-0 w-[180px] h-[174px] object-contain select-none pointer-events-none",
+      imgWidth: 244,
+      imgHeight: 172
+    },
+    {
+      id: "Essay",
+      title: "Essay",
+      desc: "Argumentative, descriptive, analytical, or narrative format.",
+      imageSrc: "/upload/Essay2.png",
+      imageAlt: "Essay paper sheets and pen",
+      bgClass: "bg-gradient-to-br from-[#f2f6fa] to-[#e8edf5] border border-slate-200/80 text-slate-900",
+      isLight: true,
+      imgClass: "absolute right-0 bottom-1 w-[172px] h-[162px] object-contain select-none pointer-events-none",
+      imgWidth: 189,
+      imgHeight: 165
+    },
+    {
+      id: "Research Paper",
+      title: "Research Paper",
+      desc: "Full academic research structure with citations and references.",
+      imageSrc: "/upload/Research2.png",
+      imageAlt: "Research paper with magnifying glass",
+      bgClass: "bg-gradient-to-br from-[#f2f6fa] to-[#e8edf5] border border-slate-200/80 text-slate-900",
+      isLight: true,
+      imgClass: "absolute -right-1 bottom-0 w-[170px] h-[160px] object-contain select-none pointer-events-none",
+      imgWidth: 192,
+      imgHeight: 161
+    },
+    {
+      id: "Report",
+      title: "Report",
+      desc: "Formal, structured report with headings and data sections.",
+      imageSrc: "/upload/Report2.png",
+      imageAlt: "Report clipboard and calculator",
+      bgClass: "bg-gradient-to-r from-[#eb4f27] to-[#f4682c] text-white",
+      isLight: false,
+      imgClass: "absolute right-0 bottom-0 w-[168px] h-[148px] object-contain select-none pointer-events-none",
+      imgWidth: 171,
+      imgHeight: 146
+    }
   ];
 
   return (
-    <div className="flex flex-col xl:flex-row gap-12 w-full">
-      {/* Left: Options */}
-      <div className="flex-1 flex flex-col">
-        <h2 className="text-[22px] font-bold text-slate-900 mb-1">What would you like to create?</h2>
-        <p className="text-[14px] text-slate-500 font-medium mb-8">Choose a document type to begin.</p>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="flex flex-col xl:flex-row items-start gap-8 2xl:gap-12 w-full pb-8">
+      {/* Left Column: Category Selection Grid (Exact 350x184 cards) */}
+      <div className="flex flex-col flex-1 min-w-0">
+        <h2 className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight">
+          What would you like to create?
+        </h2>
+        <p className="text-sm font-medium text-slate-400 mt-1 mb-6">
+          Choose a document type to begin.
+        </p>
+
+        {/* 2x2 Grid with exact size 350 * 184 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-fit">
           {categories.map((cat) => {
-            const isSelected = formData.category === cat.title;
+            const isSelected = formData.category === cat.id;
+
             return (
-              <div 
-                key={cat.title}
-                onClick={() => updateForm({ category: cat.title })}
-                className={`relative overflow-hidden rounded-2xl p-6 cursor-pointer border-2 transition-all duration-300 h-[180px] flex flex-col group
-                  ${isSelected ? "border-[#3B60FF] shadow-md scale-[1.02]" : "border-transparent bg-white shadow-sm hover:shadow-md hover:border-blue-200"}
-                  ${cat.title === "Assignment" ? "bg-gradient-to-br from-[#4f71ff] to-[#254cf5] text-white" 
-                    : cat.title === "Report" ? "bg-gradient-to-br from-[#fd8432] to-[#ea5f0a] text-white" 
-                    : "text-slate-800"}`}
+              <div
+                key={cat.id}
+                onClick={() => updateForm({ category: cat.id })}
+                style={{
+                  width: "350px",
+                  height: "184px",
+                  minWidth: "350px",
+                  maxWidth: "350px",
+                  minHeight: "184px",
+                  maxHeight: "184px"
+                }}
+                className={`relative overflow-hidden rounded-[24px] p-5 cursor-pointer shadow-sm transition-all duration-200 group flex flex-col justify-between shrink-0 select-none ${cat.bgClass} ${
+                  isSelected ? "ring-2 ring-[#2458f5] shadow-md scale-[1.01]" : "hover:shadow-md hover:scale-[1.005]"
+                }`}
               >
-                <h3 className="text-xl font-bold mb-2 relative z-10">{cat.title}</h3>
-                <p className={`text-[12px] font-medium leading-relaxed relative z-10 w-2/3 ${
-                  cat.title === "Assignment" || cat.title === "Report" ? "text-white/80" : "text-slate-500"
-                }`}>
-                  {cat.desc}
-                </p>
-                
-                <div className={`mt-auto inline-flex items-center gap-2 rounded-full px-3 py-1 w-fit relative z-10 text-[11px] font-bold transition-colors
-                  ${isSelected ? (cat.title === 'Assignment' || cat.title === 'Report' ? 'bg-white/20 text-white' : 'bg-[#3b60ff] text-white') : 
-                                 (cat.title === 'Assignment' || cat.title === 'Report' ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-500')}`}
-                >
-                  Select <div className={`w-2 h-2 rounded-full ${isSelected ? "bg-white" : "bg-transparent border border-current"}`}></div>
+                {/* Text Content */}
+                <div className="flex flex-col z-10 max-w-[175px]">
+                  <h3 className={`text-[20px] font-bold tracking-tight leading-snug ${cat.isLight ? "text-slate-900" : "text-white"}`}>
+                    {cat.title}
+                  </h3>
+                  <p className={`text-[11.5px] leading-relaxed mt-1 font-medium ${cat.isLight ? "text-slate-500" : "text-white/80"}`}>
+                    {cat.desc}
+                  </p>
                 </div>
 
-                {/* Decorative mock graphics matching the screenshot */}
-                {cat.title === "Assignment" && (
-                  <div className="absolute -right-4 -bottom-4 w-32 h-32 opacity-90 transform rotate-[-10deg]">
-                    <div className="w-full h-full bg-white rounded-lg shadow-xl border border-slate-200 flex flex-col">
-                       <div className="h-6 w-full border-b border-slate-200 flex gap-2 pt-2 px-2">
-                         <div className="w-1.5 h-1.5 rounded-full bg-slate-300"></div><div className="w-1.5 h-1.5 rounded-full bg-slate-300"></div><div className="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
-                       </div>
-                    </div>
+                {/* Bottom Select Pill Indicator */}
+                <div className="z-10 mt-auto">
+                  <div
+                    className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold transition-colors ${
+                      cat.isLight
+                        ? isSelected
+                          ? "bg-white text-slate-900 shadow-xs border border-blue-300"
+                          : "bg-white/80 hover:bg-white text-slate-700 border border-slate-200/80"
+                        : isSelected
+                        ? "bg-white/30 text-white"
+                        : "bg-white/20 hover:bg-white/25 text-white"
+                    }`}
+                  >
+                    <span>Select</span>
+                    {/* Toggle / Radio Indicator */}
+                    {isSelected ? (
+                      <div className="w-4 h-2.5 rounded-full bg-white/50 flex items-center justify-end p-0.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+                      </div>
+                    ) : (
+                      <div className="w-2.5 h-2.5 rounded-full border-[1.5px] border-[#2458f5]"></div>
+                    )}
                   </div>
-                )}
-                {cat.title === "Essay" && (
-                  <div className="absolute -right-6 -bottom-6 w-32 h-32 opacity-90 transform rotate-[10deg]">
-                     <div className="w-full h-full bg-white rounded-md shadow-lg border border-slate-200 p-2 flex flex-col gap-1.5">
-                       <div className="w-full h-1 bg-slate-200 rounded-full"></div><div className="w-3/4 h-1 bg-slate-200 rounded-full"></div><div className="w-full h-1 bg-slate-200 rounded-full"></div>
-                     </div>
-                  </div>
-                )}
-                {cat.title === "Research Paper" && (
-                  <div className="absolute -right-2 -bottom-6 w-28 h-32 opacity-90">
-                     <div className="w-full h-full bg-emerald-50 rounded-md shadow-lg border border-emerald-100 p-2 flex border-t-[8px] border-t-emerald-400">
-                        <div className="w-12 h-12 rounded-full border-[4px] border-slate-300 mt-4 ml-2"></div>
-                     </div>
-                  </div>
-                )}
-                {cat.title === "Report" && (
-                  <div className="absolute -right-2 -bottom-2 w-36 h-28 opacity-90">
-                     <div className="w-full h-full bg-white rounded-md shadow-lg border border-slate-200 overflow-hidden flex items-end px-2 gap-1 pb-2">
-                       <div className="w-4 h-12 bg-[#3b60ff] rounded-t-sm"></div><div className="w-4 h-16 bg-blue-300 rounded-t-sm"></div><div className="w-4 h-8 bg-[#ffc107] rounded-t-sm"></div><div className="w-4 h-20 bg-emerald-400 rounded-t-sm"></div>
-                     </div>
-                  </div>
-                )}
+                </div>
+
+                {/* Uploaded Illustration Asset */}
+                <div className={cat.imgClass}>
+                  <Image
+                    src={cat.imageSrc}
+                    alt={cat.imageAlt}
+                    width={cat.imgWidth}
+                    height={cat.imgHeight}
+                    className="w-full h-full object-contain drop-shadow-sm"
+                    priority
+                  />
+                </div>
               </div>
             );
           })}
         </div>
 
-        <div className="flex justify-end mt-10">
-           <Button 
-             disabled={!formData.category}
-             onClick={onNext}
-             className="rounded-full bg-[#3b60ff] hover:bg-[#3252d9] text-white px-8 h-10 shadow-sm transition-all font-bold text-[13px] disabled:opacity-50"
-           >
-             Continue <IconArrowRight className="w-4 h-4 ml-2" />
-           </Button>
+        {/* Action Buttons under the 2x2 grid, matching design placement */}
+        <div className="flex items-center justify-end gap-3 mt-6 w-full max-w-[720px] pr-2">
+          <button
+            type="button"
+            onClick={() => router.push("/dashboard")}
+            className="border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-800 text-xs font-semibold px-5 py-2 rounded-full transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={onNext}
+            className="bg-[#2458f5] hover:bg-[#1d4ed8] text-white text-xs font-semibold px-6 py-2 rounded-full flex items-center gap-1.5 shadow-sm transition-transform active:scale-95"
+          >
+            <span>Continue</span>
+            <IconArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
 
-      {/* Right: Preview Panel */}
-      <div className="w-full xl:w-[320px] 2xl:w-[400px] flex-shrink-0 flex flex-col">
-         <h3 className="text-[16px] font-bold text-slate-800 mb-1">Your document preview</h3>
-         <p className="text-[12px] font-medium text-slate-400 mb-4">A preview will appear here once you select a category.</p>
-         
-         <div className="flex-1 bg-[#111] rounded-[32px] overflow-hidden flex items-center justify-center p-8 relative min-h-[500px] shadow-2xl border border-slate-800 isolate">
-            {/* Grid overlay */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-screen" 
-                 style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-            
-            {formData.category ? (
-              <div className="w-full max-w-[280px] aspect-[1/1.4] bg-white rounded-md shadow-2xl relative p-6 animate-fade-in-up">
-                 <div className="w-1 h-full bg-emerald-500 absolute left-0 top-0 rounded-l-md"></div>
-                 <div className="text-[9px] text-slate-400 font-bold tracking-widest uppercase mb-4">Genas Generated</div>
-                 <div className="w-full h-2 bg-slate-200 rounded-full mb-2"></div>
-                 <div className="w-3/4 h-2 bg-slate-200 rounded-full mb-8"></div>
-                 
-                 <div className="text-[14px] font-bold text-emerald-600 mb-2 uppercase">{formData.category}</div>
-                 <div className="text-[11px] font-bold text-slate-800">Title of the Document</div>
-                 <div className="w-1/2 h-1 bg-slate-200 rounded-full mt-2 mb-10"></div>
+      {/* Right Column: Tablet Device Frame with Document Preview */}
+      <div className="flex flex-col flex-shrink-0 w-full xl:w-[320px] 2xl:w-[340px]">
+        <div className="flex flex-col mb-4">
+          <h3 className="text-[15px] font-bold text-slate-900 tracking-tight">
+            Your document preview
+          </h3>
+          <p className="text-[11.5px] font-medium text-slate-400 mt-0.5">
+            A preview will appear here once you select a category.
+          </p>
+        </div>
 
-                 <div className="w-full h-1 bg-slate-100 rounded-full mb-1.5"></div>
-                 <div className="w-full h-1 bg-slate-100 rounded-full mb-1.5"></div>
-                 <div className="w-5/6 h-1 bg-slate-100 rounded-full mb-1.5"></div>
-                 <div className="w-full h-1 bg-slate-100 rounded-full mb-1.5 mt-4"></div>
-                 <div className="w-4/5 h-1 bg-slate-100 rounded-full mb-1.5"></div>
-              </div>
-            ) : (
-              <div className="w-full max-w-[280px] aspect-[1/1.4] bg-white/5 rounded-md border border-white/10 flex items-center justify-center border-dashed backdrop-blur-sm">
-                 <span className="text-white/30 text-sm font-medium">Select a category</span>
-              </div>
-            )}
-         </div>
+        {/* Tablet Device Frame */}
+        <div className="w-full sm:w-[310px] xl:w-[320px] 2xl:w-[340px] h-[460px] sm:h-[490px] bg-[#16161a] rounded-[32px] p-4 flex items-center justify-center shadow-xl border border-slate-800/80 relative overflow-hidden">
+          {/* Subtle Ambient reflection on tablet bezel */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+
+          {/* Screen Content: Official Preview Document */}
+          <div className="w-full h-full rounded-[22px] bg-slate-900/60 overflow-hidden flex items-center justify-center p-3 relative">
+            <Image
+              src="/upload/Preview.png"
+              alt="Document Preview"
+              width={220}
+              height={290}
+              className="object-contain rounded-md shadow-lg max-h-[440px] select-none"
+              priority
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-// Ensure icon is available for button
-import { IconArrowRight } from "@tabler/icons-react";

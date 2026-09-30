@@ -137,15 +137,16 @@ export default function DashboardOverview() {
         </div>
       </div>
 
-      {/* 4 Action Cards Row - Exact Height 174px with Bottom Blur Layer & Submerged Illustrations */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 w-full">
+      {/* 4 Action Cards Row - Exact Size 237px x 174px with Bottom Blurred Frosted Layer */}
+      <div className="flex flex-wrap items-center gap-4 xl:gap-5 w-full">
         {categories.map((cat) => {
           const IconBadge = cat.icon;
 
           return (
             <div 
               key={cat.name} 
-              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] h-[174px] relative overflow-hidden group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
+              style={{ width: "237px", height: "174px", minWidth: "237px", maxWidth: "237px", minHeight: "174px", maxHeight: "174px" }}
+              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] w-[237px] h-[174px] shrink-0 relative overflow-hidden group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
             >
               {/* Background ambient light */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl pointer-events-none z-0" />
@@ -173,7 +174,7 @@ export default function DashboardOverview() {
               <div 
                 className="absolute bottom-0 left-0 right-0 h-[68px] z-20 pointer-events-none rounded-b-[24px]"
                 style={{
-                  background: "linear-gradient(to bottom, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.28) 100%)",
+                  background: "linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.32) 100%)",
                   backdropFilter: "blur(14px)",
                   WebkitBackdropFilter: "blur(14px)",
                   maskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.75) 80%, transparent 100%)",
