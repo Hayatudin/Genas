@@ -69,8 +69,8 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
           Choose a document type to begin.
         </p>
 
-        {/* 2x2 Grid with exact size 350 * 184 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-fit">
+        {/* Responsive 2x2 Grid filling available space */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 xl:gap-6 w-full">
           {categories.map((cat) => {
             const isSelected = formData.category === cat.id;
 
@@ -78,24 +78,16 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
               <div
                 key={cat.id}
                 onClick={() => updateForm({ category: cat.id })}
-                style={{
-                  width: "350px",
-                  height: "184px",
-                  minWidth: "350px",
-                  maxWidth: "350px",
-                  minHeight: "184px",
-                  maxHeight: "184px"
-                }}
-                className={`relative overflow-hidden rounded-[24px] p-5 cursor-pointer shadow-sm transition-all duration-200 group flex flex-col justify-between shrink-0 select-none ${cat.bgClass} ${
+                className={`relative overflow-hidden rounded-[24px] p-5 cursor-pointer shadow-sm transition-all duration-200 group flex flex-col justify-between w-full h-[184px] select-none ${cat.bgClass} ${
                   isSelected ? "ring-2 ring-[#2458f5] shadow-md scale-[1.01]" : "hover:shadow-md hover:scale-[1.005]"
                 }`}
               >
                 {/* Text Content */}
-                <div className="flex flex-col z-10 max-w-[175px]">
-                  <h3 className={`text-[20px] font-bold tracking-tight leading-snug ${cat.isLight ? "text-slate-900" : "text-white"}`}>
+                <div className="flex flex-col z-10 max-w-[62%] sm:max-w-[60%]">
+                  <h3 className={`text-[19px] sm:text-[20px] font-bold tracking-tight leading-snug ${cat.isLight ? "text-slate-900" : "text-white"}`}>
                     {cat.title}
                   </h3>
-                  <p className={`text-[11.5px] leading-relaxed mt-1 font-medium ${cat.isLight ? "text-slate-500" : "text-white/80"}`}>
+                  <p className={`text-[11px] sm:text-[11.5px] leading-relaxed mt-1 font-medium ${cat.isLight ? "text-slate-500" : "text-white/80"}`}>
                     {cat.desc}
                   </p>
                 </div>
@@ -142,7 +134,7 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
         </div>
 
         {/* Action Buttons under the 2x2 grid, matching design placement */}
-        <div className="flex items-center justify-end gap-3 mt-6 w-full max-w-[720px] pr-2">
+        <div className="flex items-center justify-end gap-3 mt-6 w-full pr-1">
           <button
             type="button"
             onClick={() => router.push("/dashboard")}

@@ -53,13 +53,13 @@ export function Sidebar({
             /* When collapsed: logo is shown by default. When hovered, logo hides and revealer icon appears */
             <div 
               onClick={() => setIsCollapsed(false)}
-              className="relative w-10 h-10 flex items-center justify-center cursor-pointer group rounded-xl hover:bg-white transition-all shadow-xs"
+              className="relative w-9 h-9 flex items-center justify-center cursor-pointer group rounded-xl hover:bg-white transition-all shadow-xs"
               title="Expand sidebar"
               role="button"
               aria-label="Expand sidebar"
             >
               {/* Logo: visible by default, hidden when hovered */}
-              <div className="relative w-8 h-8 transition-opacity duration-200 group-hover:opacity-0 pointer-events-auto group-hover:pointer-events-none flex items-center justify-center">
+              <div className="relative w-7 h-7 transition-opacity duration-200 group-hover:opacity-0 pointer-events-auto group-hover:pointer-events-none flex items-center justify-center">
                 <Image 
                   src="/images/genas-logo.png" 
                   alt="Genas Logo" 
@@ -70,14 +70,14 @@ export function Sidebar({
 
               {/* Collapser/Revealer Icon: hidden by default, visible only when logo container is hovered */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#2458f5]">
-                <IconLayoutSidebarRightCollapse className="w-5 h-5" />
+                <IconLayoutSidebarRightCollapse className="w-4.5 h-4.5" />
               </div>
             </div>
           ) : (
             /* When expanded: logo + Genas text on left, collapse icon on right */
             <>
-              <Link href="/" className="inline-flex items-center gap-3 group">
-                <div className="relative w-8 h-8 flex-shrink-0">
+              <Link href="/" className="inline-flex items-center gap-2.5 group">
+                <div className="relative w-7 h-7 flex-shrink-0">
                   <Image 
                     src="/images/genas-logo.png" 
                     alt="Genas Logo" 
@@ -85,7 +85,7 @@ export function Sidebar({
                     className="object-contain transition-transform group-hover:scale-105"
                   />
                 </div>
-                <span className="text-[22px] font-bold text-slate-900 tracking-tight">
+                <span className="text-[17px] font-bold text-slate-900 tracking-tight">
                   Genas
                 </span>
               </Link>
@@ -97,14 +97,14 @@ export function Sidebar({
                 title="Collapse sidebar"
                 aria-label="Collapse sidebar"
               >
-                <IconLayoutSidebarLeftCollapse className="w-5 h-5" />
+                <IconLayoutSidebarLeftCollapse className="w-4.5 h-4.5" />
               </button>
             </>
           )}
         </div>
 
         {/* Navigation items */}
-        <nav className="flex flex-col gap-1.5 w-full">
+        <nav className="flex flex-col gap-1 w-full">
           {links.map((link) => {
             const isActive = pathname === link.href;
             const Icon = link.icon;
@@ -113,28 +113,28 @@ export function Sidebar({
               <Link
                 key={link.label}
                 href={link.href}
-                className={`flex items-center gap-3.5 py-3 rounded-2xl font-semibold text-[14px] transition-all ${
+                className={`flex items-center gap-2.5 py-2.5 rounded-xl font-medium text-[12.5px] transition-all ${
                   isActive
-                    ? "bg-[#2458f5] text-white shadow-md shadow-blue-500/20"
+                    ? "bg-[#2458f5] text-white font-semibold shadow-sm shadow-blue-500/20"
                     : "text-[#5e6e82] hover:text-slate-900 hover:bg-white/60"
-                } ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
+                } ${isCollapsed ? 'justify-center px-0' : 'px-3.5'}`}
                 title={isCollapsed ? link.label : undefined}
               >
-                <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-white" : "text-[#7a8a9e]"}`} />
-                {!isCollapsed && <span className="whitespace-nowrap">{link.label}</span>}
+                <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-white" : "text-[#7a8a9e]"}`} />
+                {!isCollapsed && <span className="whitespace-nowrap tracking-tight">{link.label}</span>}
               </Link>
             );
           })}
         </nav>
       </div>
 
-      {/* Bottom: Get Premium Container - Stuck to bottom with exact height 187px */}
-      <div className="pt-4 mt-auto">
+      {/* Bottom: Get Premium Container */}
+      <div className="pt-3 mt-auto">
         {!isCollapsed ? (
-          <div className="h-[187px] bg-[#0546e0] rounded-[26px] p-5 relative overflow-hidden shadow-lg shadow-blue-700/20 text-white flex flex-col justify-between">
+          <div className="h-[178px] bg-[#0546e0] rounded-[24px] p-4.5 relative overflow-hidden shadow-lg shadow-blue-700/20 text-white flex flex-col justify-between">
             {/* Wave SVG Background matching the design */}
             <svg
-              className="absolute -bottom-2 -right-4 w-[170px] h-[140px] opacity-40 pointer-events-none"
+              className="absolute -bottom-2 -right-4 w-[160px] h-[130px] opacity-40 pointer-events-none"
               viewBox="0 0 200 200"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -151,19 +151,19 @@ export function Sidebar({
             </svg>
 
             <div className="relative z-10 flex flex-col">
-              <h4 className="flex items-center gap-1.5 text-white font-bold text-[16px] tracking-tight">
+              <h4 className="flex items-center gap-1.5 text-white font-bold text-[14px] tracking-tight">
                 <span>Get Premium</span>
-                <IconStarFilled className="w-4 h-4 text-[#fbbf24]" />
+                <IconStarFilled className="w-3.5 h-3.5 text-[#fbbf24]" />
               </h4>
-              <p className="text-[11.5px] text-blue-100/80 mt-1 leading-relaxed font-medium">
+              <p className="text-[11px] text-blue-100/80 mt-1 leading-relaxed font-normal">
                 Unlock All premium features and continue generating more
               </p>
             </div>
 
             <Link href="/dashboard/billing" className="relative z-10 block mt-auto">
-              <button className="w-full bg-white hover:bg-slate-50 text-[#0546e0] font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-between shadow-sm transition-transform active:scale-95">
+              <button className="w-full bg-white hover:bg-slate-50 text-[#0546e0] font-bold text-[11px] py-2 px-3.5 rounded-xl flex items-center justify-between shadow-sm transition-transform active:scale-95">
                 <span>Upgrade</span>
-                <div className="w-5 h-5 rounded-md bg-blue-50 flex items-center justify-center text-[#0546e0]">
+                <div className="w-4.5 h-4.5 rounded-md bg-blue-50 flex items-center justify-center text-[#0546e0]">
                   <IconArrowUpRight className="w-3.5 h-3.5" />
                 </div>
               </button>
@@ -171,13 +171,13 @@ export function Sidebar({
           </div>
         ) : (
           <Link href="/dashboard/billing" className="block">
-            <div className="h-[187px] bg-[#0546e0] rounded-2xl p-3 flex flex-col items-center justify-between cursor-pointer shadow-md group py-4">
-              <IconStarFilled className="w-6 h-6 text-[#fbbf24] group-hover:scale-110 transition-transform" title="Get Premium" />
-              <span className="text-[10px] font-bold text-white uppercase tracking-wider text-center rotate-[-90deg]">
+            <div className="h-[178px] bg-[#0546e0] rounded-2xl p-3 flex flex-col items-center justify-between cursor-pointer shadow-md group py-4">
+              <IconStarFilled className="w-5 h-5 text-[#fbbf24] group-hover:scale-110 transition-transform" title="Get Premium" />
+              <span className="text-[9.5px] font-bold text-white uppercase tracking-wider text-center rotate-[-90deg]">
                 Upgrade
               </span>
-              <div className="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center text-white">
-                <IconArrowUpRight className="w-3.5 h-3.5" />
+              <div className="w-5 h-5 rounded-md bg-white/20 flex items-center justify-center text-white">
+                <IconArrowUpRight className="w-3 h-3" />
               </div>
             </div>
           </Link>

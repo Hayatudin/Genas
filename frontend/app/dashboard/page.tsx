@@ -137,16 +137,15 @@ export default function DashboardOverview() {
         </div>
       </div>
 
-      {/* 4 Action Cards Row - Exact Size 237px x 174px with Bottom Blurred Frosted Layer */}
-      <div className="flex flex-wrap items-center gap-4 xl:gap-5 w-full">
+      {/* 4 Action Cards Row - Responsive Grid for all device sizes & collapsed sidebar state */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 xl:gap-5 2xl:gap-6 w-full">
         {categories.map((cat) => {
           const IconBadge = cat.icon;
 
           return (
             <div 
               key={cat.name} 
-              style={{ width: "237px", height: "174px", minWidth: "237px", maxWidth: "237px", minHeight: "174px", maxHeight: "174px" }}
-              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] w-[237px] h-[174px] shrink-0 relative overflow-hidden group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
+              className={`bg-gradient-to-br ${cat.gradient} rounded-[24px] w-full h-[174px] relative overflow-hidden group shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
             >
               {/* Background ambient light */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl pointer-events-none z-0" />
@@ -183,12 +182,12 @@ export default function DashboardOverview() {
               />
 
               {/* Content Layer (Layered at z-30: Crisp title, subtitle, and Start Generating button) */}
-              <div className="absolute bottom-0 left-0 right-0 h-[68px] z-30 px-3.5 pb-3 flex items-end justify-between pointer-events-none">
-                <div className="flex flex-col pointer-events-auto">
-                  <span className="font-bold text-white text-[15px] sm:text-[16px] leading-tight drop-shadow-xs tracking-tight">
+              <div className="absolute bottom-0 left-0 right-0 h-[68px] z-30 px-3.5 sm:px-4 pb-3 flex items-end justify-between pointer-events-none">
+                <div className="flex flex-col pointer-events-auto min-w-0 pr-1.5 sm:pr-2">
+                  <span className="font-bold text-white text-[15px] sm:text-[16px] leading-tight drop-shadow-xs tracking-tight truncate">
                     {cat.name}
                   </span>
-                  <span className="text-[10px] sm:text-[10.5px] text-white/90 font-medium leading-tight mt-0.5 max-w-[125px] drop-shadow-xs">
+                  <span className="text-[10px] sm:text-[10.5px] text-white/90 font-medium leading-tight mt-0.5 truncate max-w-[130px] sm:max-w-[160px] 2xl:max-w-none drop-shadow-xs">
                     {cat.desc}
                   </span>
                 </div>
@@ -196,7 +195,7 @@ export default function DashboardOverview() {
                 <Link href="/dashboard/generate" className="flex-shrink-0 pointer-events-auto">
                   <button 
                     type="button"
-                    className="bg-white/95 hover:bg-white text-slate-900 text-[10px] sm:text-[10.5px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
+                    className="bg-white/95 hover:bg-white text-slate-900 text-[10px] sm:text-[10.5px] font-bold px-2.5 sm:px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
                   >
                     <span>Start Generating</span>
                     <IconArrowRight className="w-3 h-3 text-slate-800" />
