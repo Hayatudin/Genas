@@ -171,36 +171,39 @@ export default function DashboardOverview() {
 
               {/* Frosted Glass Layer with Upper Edge Fade (Layered at z-20, blurs the bottom section of the illustration) */}
               <div 
-                className="absolute bottom-0 left-0 right-0 h-[68px] z-20 pointer-events-none rounded-b-[24px]"
+                className="absolute bottom-0 left-0 right-0 h-[84px] z-20 pointer-events-none rounded-b-[24px]"
                 style={{
-                  background: "linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.32) 100%)",
-                  backdropFilter: "blur(14px)",
-                  WebkitBackdropFilter: "blur(14px)",
-                  maskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.75) 80%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to top, black 55%, rgba(0, 0, 0, 0.75) 80%, transparent 100%)"
+                  background: "linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.38) 100%)",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                  maskImage: "linear-gradient(to top, black 50%, rgba(0, 0, 0, 0.8) 75%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to top, black 50%, rgba(0, 0, 0, 0.8) 75%, transparent 100%)"
                 }}
               />
 
-              {/* Content Layer (Layered at z-30: Crisp title, subtitle, and Start Generating button) */}
-              <div className="absolute bottom-0 left-0 right-0 h-[68px] z-30 px-3.5 sm:px-4 pb-3 flex items-end justify-between pointer-events-none">
-                <div className="flex flex-col pointer-events-auto min-w-0 pr-1.5 sm:pr-2">
-                  <span className="font-bold text-white text-[15px] sm:text-[16px] leading-tight drop-shadow-xs tracking-tight truncate">
-                    {cat.name}
-                  </span>
-                  <span className="text-[10px] sm:text-[10.5px] text-white/90 font-medium leading-tight mt-0.5 truncate max-w-[130px] sm:max-w-[160px] 2xl:max-w-none drop-shadow-xs">
-                    {cat.desc}
-                  </span>
-                </div>
+              {/* Content Layer: Separate Title with its own width above + shared bottom container for description and button */}
+              <div className="absolute bottom-0 left-0 right-0 z-30 px-3.5 sm:px-4 pb-3 sm:pb-3.5 flex flex-col justify-end pointer-events-none">
+                {/* 1. Title: Separate from the button, has its own full width above */}
+                <h3 className="font-bold text-white text-[17px] sm:text-[18px] xl:text-[19px] leading-tight drop-shadow-xs tracking-tight mb-1.5 pointer-events-auto">
+                  {cat.name}
+                </h3>
 
-                <Link href="/dashboard/generate" className="flex-shrink-0 pointer-events-auto">
-                  <button 
-                    type="button"
-                    className="bg-white/95 hover:bg-white text-slate-900 text-[10px] sm:text-[10.5px] font-bold px-2.5 sm:px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
-                  >
-                    <span>Start Generating</span>
-                    <IconArrowRight className="w-3 h-3 text-slate-800" />
-                  </button>
-                </Link>
+                {/* 2. Container holding description and button in the same mix */}
+                <div className="flex items-end justify-between gap-2 w-full pointer-events-auto">
+                  <p className="text-[10px] sm:text-[11px] text-white/95 font-medium leading-[1.3] max-w-[130px] sm:max-w-[155px] drop-shadow-xs">
+                    {cat.desc}
+                  </p>
+
+                  <Link href="/dashboard/generate" className="flex-shrink-0">
+                    <button 
+                      type="button"
+                      className="bg-white hover:bg-slate-50 text-slate-900 text-[10px] sm:text-[10.5px] font-bold px-2.5 sm:px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
+                    >
+                      <span>Start Generating</span>
+                      <IconArrowRight className="w-3 h-3 text-slate-800" />
+                    </button>
+                  </Link>
+                </div>
               </div>
 
             </div>

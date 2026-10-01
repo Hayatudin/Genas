@@ -38,8 +38,8 @@ export default function GenerateDocumentPage() {
         </p>
       </div>
 
-      {/* Stepper matching attached design */}
-      <div className="flex items-center w-full max-w-[620px] mb-8 sm:mb-10">
+      {/* Stepper matching attached design - extended almost to the end of the page */}
+      <div className="flex items-center w-full max-w-[980px] xl:max-w-[1060px] 2xl:max-w-[1140px] mb-8 sm:mb-10">
         {/* Step 1: Category */}
         <div className="flex flex-col items-start flex-shrink-0">
           <div className="w-5 h-5 rounded-full bg-[#2458f5] flex items-center justify-center text-white shadow-xs">

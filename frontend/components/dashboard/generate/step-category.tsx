@@ -16,7 +16,7 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
       imageAlt: "Assignment binder notebook",
       bgClass: "bg-gradient-to-r from-[#205bf4] to-[#3a7bfb] text-white",
       isLight: false,
-      imgClass: "absolute -right-2 bottom-0 w-[180px] h-[174px] object-contain select-none pointer-events-none",
+      imgClass: "absolute right-0 bottom-0 w-[220px] sm:w-[240px] h-[178px] flex items-end justify-end select-none pointer-events-none",
       imgWidth: 244,
       imgHeight: 172
     },
@@ -28,7 +28,7 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
       imageAlt: "Essay paper sheets and pen",
       bgClass: "bg-gradient-to-br from-[#f2f6fa] to-[#e8edf5] border border-slate-200/80 text-slate-900",
       isLight: true,
-      imgClass: "absolute right-0 bottom-1 w-[172px] h-[162px] object-contain select-none pointer-events-none",
+      imgClass: "absolute right-0 bottom-0 w-[185px] sm:w-[200px] h-[172px] flex items-end justify-end select-none pointer-events-none",
       imgWidth: 189,
       imgHeight: 165
     },
@@ -40,7 +40,7 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
       imageAlt: "Research paper with magnifying glass",
       bgClass: "bg-gradient-to-br from-[#f2f6fa] to-[#e8edf5] border border-slate-200/80 text-slate-900",
       isLight: true,
-      imgClass: "absolute -right-1 bottom-0 w-[170px] h-[160px] object-contain select-none pointer-events-none",
+      imgClass: "absolute right-0 bottom-0 w-[185px] sm:w-[200px] h-[168px] flex items-end justify-end select-none pointer-events-none",
       imgWidth: 192,
       imgHeight: 161
     },
@@ -52,7 +52,7 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
       imageAlt: "Report clipboard and calculator",
       bgClass: "bg-gradient-to-r from-[#eb4f27] to-[#f4682c] text-white",
       isLight: false,
-      imgClass: "absolute right-0 bottom-0 w-[168px] h-[148px] object-contain select-none pointer-events-none",
+      imgClass: "absolute right-0 bottom-0 w-[180px] sm:w-[195px] h-[160px] flex items-end justify-end select-none pointer-events-none",
       imgWidth: 171,
       imgHeight: 146
     }
@@ -92,39 +92,29 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
                   </p>
                 </div>
 
-                {/* Bottom Select Pill Indicator */}
+                {/* Bottom Select Pill Button without radio button, matching attached design */}
                 <div className="z-10 mt-auto">
-                  <div
-                    className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold transition-colors ${
-                      cat.isLight
-                        ? isSelected
-                          ? "bg-white text-slate-900 shadow-xs border border-blue-300"
-                          : "bg-white/80 hover:bg-white text-slate-700 border border-slate-200/80"
-                        : isSelected
-                        ? "bg-white/30 text-white"
-                        : "bg-white/20 hover:bg-white/25 text-white"
+                  <span
+                    className={`inline-flex items-center justify-center rounded-full px-3.5 py-1 text-[11px] font-semibold transition-all select-none ${
+                      cat.id === "Assignment"
+                        ? "bg-white/90 text-slate-900 shadow-xs"
+                        : cat.id === "Report"
+                        ? "bg-[#fed7cc] text-[#c2410c]"
+                        : "bg-[#dce9fd] text-[#2458f5]"
                     }`}
                   >
-                    <span>Select</span>
-                    {/* Toggle / Radio Indicator */}
-                    {isSelected ? (
-                      <div className="w-4 h-2.5 rounded-full bg-white/50 flex items-center justify-end p-0.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                      </div>
-                    ) : (
-                      <div className="w-2.5 h-2.5 rounded-full border-[1.5px] border-[#2458f5]"></div>
-                    )}
-                  </div>
+                    Select
+                  </span>
                 </div>
 
-                {/* Uploaded Illustration Asset */}
+                {/* Uploaded Illustration Asset: Aligned flush to the bottom with no gap */}
                 <div className={cat.imgClass}>
                   <Image
                     src={cat.imageSrc}
                     alt={cat.imageAlt}
                     width={cat.imgWidth}
                     height={cat.imgHeight}
-                    className="w-full h-full object-contain drop-shadow-sm"
+                    className="w-full h-full object-contain object-bottom select-none drop-shadow-sm"
                     priority
                   />
                 </div>
