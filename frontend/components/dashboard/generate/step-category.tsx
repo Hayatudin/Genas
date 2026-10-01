@@ -74,10 +74,16 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
           {categories.map((cat) => {
             const isSelected = formData.category === cat.id;
 
+            const handleSelect = (e?: React.MouseEvent) => {
+              if (e) e.stopPropagation();
+              updateForm({ category: cat.id });
+              onNext();
+            };
+
             return (
               <div
                 key={cat.id}
-                onClick={() => updateForm({ category: cat.id })}
+                onClick={() => handleSelect()}
                 className={`relative overflow-hidden rounded-[24px] p-5 cursor-pointer shadow-sm transition-all duration-200 group flex flex-col justify-between w-full h-[184px] select-none ${cat.bgClass} ${
                   isSelected ? "ring-2 ring-[#2458f5] shadow-md scale-[1.01]" : "hover:shadow-md hover:scale-[1.005]"
                 }`}
@@ -92,19 +98,21 @@ export function StepCategory({ formData, updateForm, onNext }: any) {
                   </p>
                 </div>
 
-                {/* Bottom Select Pill Button without radio button, matching attached design */}
+                {/* Bottom Select Pill Button - Automatically continues to the next step when clicked */}
                 <div className="z-10 mt-auto">
-                  <span
-                    className={`inline-flex items-center justify-center rounded-full px-3.5 py-1 text-[11px] font-semibold transition-all select-none ${
+                  <button
+                    type="button"
+                    onClick={handleSelect}
+                    className={`inline-flex items-center justify-center rounded-full px-4 py-1 text-[11px] font-semibold transition-all select-none shadow-2xs hover:scale-105 active:scale-95 cursor-pointer ${
                       cat.id === "Assignment"
-                        ? "bg-white/90 text-slate-900 shadow-xs"
+                        ? "bg-white text-slate-900 shadow-xs hover:bg-slate-50"
                         : cat.id === "Report"
-                        ? "bg-[#fed7cc] text-[#c2410c]"
-                        : "bg-[#dce9fd] text-[#2458f5]"
+                        ? "bg-[#fed7cc] hover:bg-[#fecbc0] text-[#c2410c]"
+                        : "bg-[#dce9fd] hover:bg-[#d0e0fb] text-[#2458f5]"
                     }`}
                   >
                     Select
-                  </span>
+                  </button>
                 </div>
 
                 {/* Uploaded Illustration Asset: Aligned flush to the bottom with no gap */}
