@@ -324,65 +324,71 @@ export default function DashboardOverview() {
 
         {/* Right Column: Usage Overview Card */}
         <div className="w-full xl:w-[310px] flex-shrink-0">
-          <div className="bg-[#0047e0] rounded-[32px] p-7 min-h-[380px] xl:min-h-[420px] relative overflow-hidden flex flex-col justify-between shadow-lg shadow-blue-700/20 text-white">
+          <div className="bg-[#004de6] rounded-[32px] p-6 sm:p-7 min-h-[420px] xl:min-h-[440px] relative overflow-hidden flex flex-col justify-between shadow-lg shadow-blue-700/25 text-white">
             
-            {/* Organic Flowing Cyan Waves matching the exact design */}
+            {/* Background Organic Wave Shapes matching the exact design */}
             <svg 
-              className="absolute -bottom-4 -left-4 w-[130%] h-[180px] opacity-90 pointer-events-none"
-              viewBox="0 0 320 180" 
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 320 440" 
+              preserveAspectRatio="none"
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
+              {/* Royal Blue Wave rising through ~quarter of left card and ~half of right card */}
               <path 
-                d="M-20 180C40 100 130 90 220 130C280 155 310 120 340 100V180H-20Z" 
-                fill="#0099ff" 
+                d="M50 440 C75 350 120 250 160 215 C200 180 255 180 320 245 L320 440 Z" 
+                fill="#0066ff" 
               />
+              {/* Vibrant Cyan Wave in bottom right */}
               <path 
-                d="M-20 180C60 130 160 130 250 150C300 162 330 140 340 130V180H-20Z" 
-                fill="#00e5ff" 
+                d="M190 440 C215 365 255 315 320 330 L320 440 Z" 
+                fill="#00c5ff" 
               />
-              <circle cx="280" cy="50" r="70" fill="#3b82f6" fillOpacity="0.35" />
             </svg>
+
+            {/* Ambient glows behind the top of each card */}
+            <div className="absolute top-28 left-6 w-24 h-24 bg-white/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute top-28 right-6 w-24 h-24 bg-white/20 rounded-full blur-2xl pointer-events-none" />
 
             {/* Card Content Header */}
             <div className="relative z-10 flex flex-col">
-              <h3 className="text-[22px] font-bold text-white tracking-tight mb-7">
+              <h3 className="text-[24px] sm:text-[26px] font-bold text-white tracking-tight mb-7">
                 Usage Overview
               </h3>
 
-              <div className="flex items-center gap-3.5">
+              <div className="grid grid-cols-2 gap-3.5">
                 {/* Free Plan Box */}
-                <div className="flex-1 bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex flex-col shadow-xs">
-                  <span className="text-[20px] font-bold text-white mb-0.5 leading-none">
+                <div className="bg-white/[0.12] backdrop-blur-md border border-white/[0.22] rounded-[22px] p-4 sm:p-4.5 flex flex-col justify-between h-[120px] shadow-xs">
+                  <span className="text-[22px] font-bold text-white leading-none">
                     Free
                   </span>
-                  <span className="text-[11px] font-medium text-blue-100/80 leading-tight">
+                  <span className="text-[12px] font-medium text-blue-100/90 leading-tight">
                     Current Plan
                   </span>
                 </div>
 
                 {/* Generations Used Box */}
-                <div className="flex-1 bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex flex-col shadow-xs">
-                  <span className="text-[20px] font-bold text-white mb-0.5 leading-none">
+                <div className="bg-white/[0.12] backdrop-blur-md border border-white/[0.22] rounded-[22px] p-4 sm:p-4.5 flex flex-col justify-between h-[120px] shadow-xs">
+                  <span className="text-[22px] font-bold text-white leading-none">
                     2/5
                   </span>
-                  <span className="text-[11px] font-medium text-blue-100/80 leading-tight">
-                    Generations used
+                  <span className="text-[12px] font-medium text-blue-100/90 leading-tight">
+                    Generations<br />used
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Bottom Upgrade Action */}
-            <div className="relative z-10 mt-auto pt-6 flex justify-center">
+            <div className="relative z-10 mt-auto pt-8 flex justify-center pb-2">
               <Link href="/dashboard/billing">
                 <button 
                   type="button"
-                  className="bg-white/25 hover:bg-white/35 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-2.5 text-xs font-bold flex items-center gap-2.5 transition-all shadow-md active:scale-95 group"
+                  className="bg-[#9bc2f8] hover:bg-[#accfff] text-slate-900 rounded-full px-5 py-2 text-xs sm:text-[13px] font-bold flex items-center gap-2.5 transition-all shadow-md active:scale-95 group"
                 >
                   <span>Upgrade</span>
-                  <div className="w-4 h-4 rounded-full bg-white text-[#0047e0] flex items-center justify-center transition-transform group-hover:translate-x-0.5">
-                    <IconArrowRight className="w-2.5 h-2.5 stroke-[3]" />
+                  <div className="w-5 h-5 rounded-full bg-white text-slate-900 flex items-center justify-center transition-transform group-hover:translate-x-0.5 shadow-2xs">
+                    <IconArrowRight className="w-3 h-3 stroke-[2.5]" />
                   </div>
                 </button>
               </Link>
