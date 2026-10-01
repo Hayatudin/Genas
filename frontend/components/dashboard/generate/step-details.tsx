@@ -1,14 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { IconChevronDown } from "@tabler/icons-react";
 
 export function StepDetails({ formData, updateForm, onNext, onBack }: any) {
   const formatOptions = [
-    { id: "DOCX", label: "DOCX", desc: "Fully customizable format compatible with Microsoft Word and similar editors.", color: "from-orange-500 to-red-600", bg: "bg-red-950" },
-    { id: "PDF", label: "PDF", desc: "Fixed layout file ideal for sharing, printing, and universal viewing across all devices.", color: "from-blue-500 to-blue-700", bg: "bg-blue-950" },
-    { id: "PPT", label: "PPT", desc: "Slide based format designed for visual presentations and classroom delivery.", color: "from-amber-500 to-orange-600", bg: "bg-orange-950" },
+    { 
+      id: "DOCX", 
+      label: "DOCX", 
+      desc: "Fully customizable format compatible with Microsoft Word and similar editors.", 
+      image: "/images/WORD.png" 
+    },
+    { 
+      id: "PDF", 
+      label: "PDF", 
+      desc: "Fixed layout file ideal for sharing, printing, and universal viewing across all devices.", 
+      image: "/images/PDF.png" 
+    },
+    { 
+      id: "PPT", 
+      label: "PPT", 
+      desc: "Slide based format designed for visual presentations and classroom delivery.", 
+      image: "/images/PPT.png" 
+    },
   ];
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -150,29 +166,46 @@ export function StepDetails({ formData, updateForm, onNext, onBack }: any) {
                  <div 
                    key={format.id}
                    onClick={() => updateForm({ format: format.id })}
-                   className={`relative rounded-[24px] p-1 cursor-pointer overflow-hidden group shadow-sm transition-all duration-300
-                     ${isSelected ? "ring-2 ring-[#3b60ff] scale-[1.02]" : "ring-1 ring-slate-800/20 hover:ring-slate-400"}
-                     ${format.bg}`}
+                   className={`relative rounded-[24px] cursor-pointer overflow-hidden group shadow-sm transition-all duration-300 h-[225px] sm:h-[235px] flex flex-col justify-between select-none ${
+                     isSelected 
+                       ? "ring-2 ring-[#2458f5] shadow-lg shadow-blue-500/20 scale-[1.01]" 
+                       : "ring-1 ring-slate-800/10 hover:ring-slate-300 hover:shadow-md"
+                   }`}
                  >
-                    {/* Inner glowing header */}
-                    <div className={`h-24 rounded-t-xl bg-gradient-to-br ${format.color} opacity-80 flex items-center justify-center p-6 relative overflow-hidden saturate-150`}>
-                       <div className="absolute -right-4 -top-8 w-24 h-24 bg-white/20 rounded-full blur-xl"></div>
-                       <h4 className="text-white text-3xl font-black w-full text-left tracking-tight z-10">{format.id}</h4>
-                    </div>
-                    {/* Content */}
-                    <div className="p-5 flex flex-col gap-2 rounded-b-xl relative z-10 h-32 bg-[#1e1e1e]/60 backdrop-blur-sm">
-                      <p className="text-[11px] font-medium leading-[1.6] text-white/70">
-                         {format.desc}
-                      </p>
-                      
-                      <div className="mt-auto flex justify-end">
-                         <div className={`text-[10px] font-bold px-3 py-1 rounded-full ${isSelected ? "bg-white/20 text-white" : "text-white/40"}`}>
-                            {isSelected ? "Selected" : "Select"}
-                         </div>
-                      </div>
-                    </div>
+                   {/* Background Format Image (WORD.png / PDF.png / PPT.png) */}
+                   <Image 
+                     src={format.image}
+                     alt={format.label}
+                     fill
+                     className="object-cover object-center pointer-events-none select-none"
+                     priority
+                   />
+
+                   {/* Header Area: Format title next to the background icon */}
+                   <div className="relative z-10 h-[92px] sm:h-[98px] flex items-center pl-[24%] pr-4">
+                     <h4 className="text-white text-2xl sm:text-[28px] font-black tracking-tight drop-shadow-sm">
+                       {format.id}
+                     </h4>
+                   </div>
+
+                   {/* Content Area: Description & Selection button */}
+                   <div className="relative z-10 flex-1 p-4.5 sm:p-5 flex flex-col justify-between">
+                     <p className="text-[11px] sm:text-[11.5px] font-medium leading-[1.55] text-white/85 drop-shadow-xs">
+                       {format.desc}
+                     </p>
+                     
+                     <div className="mt-auto flex justify-end">
+                       <div className={`text-[10px] sm:text-[11px] font-bold px-3.5 py-1 rounded-full transition-all shadow-2xs ${
+                         isSelected 
+                           ? "bg-white text-slate-900 shadow-sm" 
+                           : "bg-white/20 hover:bg-white/30 text-white"
+                       }`}>
+                         {isSelected ? "Selected" : "Select"}
+                       </div>
+                     </div>
+                   </div>
                  </div>
-               )
+               );
              })}
           </div>
         </section>
