@@ -53,7 +53,7 @@ export function Sidebar({
             /* When collapsed: logo is shown by default. When hovered, logo hides and revealer icon appears */
             <div 
               onClick={() => setIsCollapsed(false)}
-              className="relative w-9 h-9 flex items-center justify-center cursor-pointer group rounded-xl hover:bg-white transition-all shadow-xs"
+              className="relative w-9 h-9 flex items-center justify-center cursor-pointer group rounded-xl hover:bg-white transition-all"
               title="Expand sidebar"
               role="button"
               aria-label="Expand sidebar"
