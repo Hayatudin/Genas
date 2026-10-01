@@ -79,7 +79,7 @@ export function Sidebar({
               <Link href="/" className="inline-flex items-center gap-2.5 group">
                 <div className="relative w-7 h-7 flex-shrink-0">
                   <Image 
-                    src="/images/genas-logo.png" 
+                    src="/images/genas logo.png" 
                     alt="Genas Logo" 
                     fill 
                     className="object-contain transition-transform group-hover:scale-105"
