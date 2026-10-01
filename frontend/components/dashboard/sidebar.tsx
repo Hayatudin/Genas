@@ -61,7 +61,7 @@ export function Sidebar({
               {/* Logo: visible by default, hidden when hovered */}
               <div className="relative w-7 h-7 transition-opacity duration-200 group-hover:opacity-0 pointer-events-auto group-hover:pointer-events-none flex items-center justify-center">
                 <Image 
-                  src="/images/genas-logo.png" 
+                  src="/images/genas logo.png" 
                   alt="Genas Logo" 
                   fill 
                   className="object-contain"
