@@ -194,7 +194,7 @@ export default function DashboardOverview() {
                     {cat.desc}
                   </p>
 
-                  <Link href="/dashboard/generate" className="flex-shrink-0">
+                  <Link href={`/dashboard/generate?category=${encodeURIComponent(cat.name)}&step=2`} className="flex-shrink-0">
                     <button 
                       type="button"
                       className="bg-white hover:bg-slate-50 text-slate-900 text-[10px] sm:text-[10.5px] font-bold px-2.5 sm:px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap transition-transform hover:scale-105 active:scale-95"

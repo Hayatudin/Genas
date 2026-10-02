@@ -1,15 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { StepCategory } from "@/components/dashboard/generate/step-category";
 import { StepDetails } from "@/components/dashboard/generate/step-details";
 import { StepTemplate } from "@/components/dashboard/generate/step-template";
 import { StepReview } from "@/components/dashboard/generate/step-review";
 
-export default function GenerateDocumentPage() {
-  const [currentStep, setCurrentStep] = useState(1);
+function GenerateContent() {
+  const searchParams = useSearchParams();
+  const paramCategory = searchParams.get("category");
+  const paramStep = searchParams.get("step");
+
+  const [currentStep, setCurrentStep] = useState(paramStep === "2" || paramCategory ? 2 : 1);
   const [formData, setFormData] = useState({
-    category: "Assignment",
+    category: paramCategory || "Assignment",
     course: "",
     topic: "",
     instructions: "",
@@ -21,6 +26,15 @@ export default function GenerateDocumentPage() {
     format: "DOCX",
     template: "Classic Academic"
   });
+
+  useEffect(() => {
+    if (paramCategory) {
+      setFormData(prev => ({ ...prev, category: paramCategory }));
+    }
+    if (paramStep === "2" || paramCategory) {
+      setCurrentStep(2);
+    }
+  }, [paramCategory, paramStep]);
 
   const handleNext = () => setCurrentStep(prev => Math.min(prev + 1, 4));
   const handleBack = () => setCurrentStep(prev => Math.max(prev - 1, 1));
@@ -183,5 +197,13 @@ export default function GenerateDocumentPage() {
         {currentStep === 4 && <StepReview formData={formData} onBack={handleBack} />}
       </div>
     </div>
+  );
+}
+
+export default function GenerateDocumentPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-slate-400 font-medium">Loading generator...</div>}>
+      <GenerateContent />
+    </Suspense>
   );
 }

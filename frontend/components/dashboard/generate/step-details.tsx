@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { IconChevronDown } from "@tabler/icons-react";
+import { IconChevronDown, IconCheck } from "@tabler/icons-react";
 
 export function StepDetails({ formData, updateForm, onNext, onBack }: any) {
   const formatOptions = [
@@ -28,6 +28,20 @@ export function StepDetails({ formData, updateForm, onNext, onBack }: any) {
   ];
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [academicDropdownOpen, setAcademicDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setAcademicDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const academicLevels = ["High School", "Undergraduate", "Master's", "PhD"];
   const faqs = [
     "How detailed should my instructions be?",
     "Can I edit the document after it's generated?",
@@ -92,20 +106,44 @@ export function StepDetails({ formData, updateForm, onNext, onBack }: any) {
         <section className="flex flex-col gap-4">
           <h3 className="text-[14px] font-bold tracking-widest text-slate-800 uppercase">Academic Settings</h3>
           <div className="flex flex-col sm:flex-row gap-6">
-            <div className="flex-1 flex flex-col gap-2">
+            {/* Custom Interactive Academic Level Dropdown */}
+            <div className="flex-1 flex flex-col gap-2 relative">
               <label className="text-[14px] font-semibold text-slate-700">Academic Level</label>
-              <div className="relative">
-                <select 
-                  value={formData.academicLevel}
-                  onChange={(e) => updateForm({ academicLevel: e.target.value })}
-                  className="w-full border border-slate-200 rounded-lg px-4 h-11 text-[14px] appearance-none bg-white focus:outline-none focus:ring-2 ring-[#3b60ff]"
+              <div className="relative" ref={dropdownRef}>
+                <button 
+                  type="button"
+                  onClick={() => setAcademicDropdownOpen(!academicDropdownOpen)}
+                  className="w-full border border-slate-200 rounded-lg px-4 h-11 text-[14px] bg-white flex items-center justify-between focus:outline-none focus:ring-2 ring-[#3b60ff] transition-all text-slate-800 font-medium cursor-pointer shadow-xs hover:border-slate-300"
                 >
-                  <option>High School</option>
-                  <option>Undergraduate</option>
-                  <option>Master's</option>
-                  <option>PhD</option>
-                </select>
-                <IconChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                  <span>{formData.academicLevel || "Undergraduate"}</span>
+                  <IconChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${academicDropdownOpen ? "rotate-180 text-[#3b60ff]" : ""}`} />
+                </button>
+
+                {academicDropdownOpen && (
+                  <div className="absolute top-[calc(100%+6px)] left-0 right-0 z-50 bg-white border border-slate-200 rounded-xl shadow-xl py-1.5 animate-in fade-in zoom-in-95 duration-150">
+                    {academicLevels.map((lvl) => {
+                      const isSelected = (formData.academicLevel || "Undergraduate") === lvl;
+                      return (
+                        <button
+                          key={lvl}
+                          type="button"
+                          onClick={() => {
+                            updateForm({ academicLevel: lvl });
+                            setAcademicDropdownOpen(false);
+                          }}
+                          className={`w-full px-4 py-2.5 text-left text-[13.5px] flex items-center justify-between transition-colors ${
+                            isSelected 
+                              ? "bg-blue-50/70 text-[#3b60ff] font-bold" 
+                              : "text-slate-700 hover:bg-slate-50 font-medium"
+                          }`}
+                        >
+                          <span>{lvl}</span>
+                          {isSelected && <IconCheck className="w-4 h-4 text-[#3b60ff]" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
             
@@ -159,14 +197,14 @@ export function StepDetails({ formData, updateForm, onNext, onBack }: any) {
         {/* File Format */}
         <section className="flex flex-col gap-4">
           <h3 className="text-[14px] font-bold tracking-widest text-slate-800 uppercase">File Format</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="flex flex-wrap gap-4 sm:gap-5 items-center">
              {formatOptions.map(format => {
                const isSelected = formData.format === format.id;
                return (
                  <div 
                    key={format.id}
                    onClick={() => updateForm({ format: format.id })}
-                   className={`relative rounded-[24px] cursor-pointer overflow-hidden group shadow-sm transition-all duration-300 h-[225px] sm:h-[235px] flex flex-col justify-between select-none ${
+                   className={`relative w-[204px] min-w-[204px] max-w-[204px] h-[170px] min-h-[170px] max-h-[170px] shrink-0 rounded-[20px] cursor-pointer overflow-hidden group shadow-sm transition-all duration-300 select-none ${
                      isSelected 
                        ? "ring-2 ring-[#2458f5] shadow-lg shadow-blue-500/20 scale-[1.01]" 
                        : "ring-1 ring-slate-800/10 hover:ring-slate-300 hover:shadow-md"
@@ -176,26 +214,27 @@ export function StepDetails({ formData, updateForm, onNext, onBack }: any) {
                    <Image 
                      src={format.image}
                      alt={format.label}
-                     fill
-                     className="object-cover object-center pointer-events-none select-none"
+                     width={204}
+                     height={170}
+                     className="w-[204px] h-[170px] object-cover object-center pointer-events-none select-none block"
                      priority
                    />
 
                    {/* Header Area: Format title next to the background icon */}
-                   <div className="relative z-10 h-[92px] sm:h-[98px] flex items-center pl-[24%] pr-4">
-                     <h4 className="text-white text-2xl sm:text-[28px] font-black tracking-tight drop-shadow-sm">
+                   <div className="absolute top-0 left-0 right-0 h-[36%] flex items-center pl-[26%] pr-3 pointer-events-none">
+                     <h4 className="text-white text-[19px] font-black tracking-tight drop-shadow-sm">
                        {format.id}
                      </h4>
                    </div>
 
                    {/* Content Area: Description & Selection button */}
-                   <div className="relative z-10 flex-1 p-4.5 sm:p-5 flex flex-col justify-between">
-                     <p className="text-[11px] sm:text-[11.5px] font-medium leading-[1.55] text-white/85 drop-shadow-xs">
+                   <div className="absolute bottom-0 left-0 right-0 h-[64%] p-3.5 flex flex-col justify-between pointer-events-none">
+                     <p className="text-[10px] font-medium leading-[1.35] text-white/90 drop-shadow-xs">
                        {format.desc}
                      </p>
                      
                      <div className="mt-auto flex justify-end">
-                       <div className={`text-[10px] sm:text-[11px] font-bold px-3.5 py-1 rounded-full transition-all shadow-2xs ${
+                       <div className={`text-[10px] font-bold px-3 py-0.5 rounded-full transition-all shadow-2xs pointer-events-auto ${
                          isSelected 
                            ? "bg-white text-slate-900 shadow-sm" 
                            : "bg-white/20 hover:bg-white/30 text-white"
