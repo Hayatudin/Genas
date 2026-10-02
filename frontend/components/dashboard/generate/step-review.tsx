@@ -345,9 +345,7 @@ export function StepReview({ formData, onBack }: any) {
                   <h3 className="text-[17px] font-bold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
                     {section.title}
                   </h3>
-                  <span className="text-[11px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
-                    {isOpen ? "Expanded" : "Collapsed"}
-                  </span>
+                  
                 </div>
                 <div className="p-1 rounded-full hover:bg-slate-100 transition-colors">
                   <IconChevronDown 
